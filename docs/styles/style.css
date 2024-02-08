@@ -29,6 +29,18 @@ main.master-sword-main {
   height: 100vh;
 }
 
+main.item-popup-main {
+  background-image: url("../assets/images/zelda-item-received-unedited.jpeg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
 .master-sword-main-transition {
   animation: master-sword-transition-keyframes 10s forwards;
 }

@@ -1,5 +1,30 @@
-// data
-const DYNAMIC_DATA = {
+//  ______________________________________
+// ||     VARIABLES & API CALL         ||
+
+//  ______________________________________
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("page is fully loaded");
+  getHyruleCompendiumAPI(12);
+  getHyruleCompendiumAPI(13);
+});
+
+async function getHyruleCompendiumAPI(entryNumber) {
+  let data = {};
+  const response = await fetch(
+    `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/${entryNumber}?game=botw`
+  );
+  data = await response.json();
+  console.log(data);
+  const imageElement = document.createElement("img");
+  var imagePath = data.data.image;
+  console.log("IMAGE PATH:", imagePath);
+  imageElement.src = `${imagePath}`;
+  cardsRevealedScene.appendChild(imageElement);
+}
+
+// this variable contains all of my dynamic page data for this project, save from of course the API.
+// i store the html of the desired pages in an Object, since this is meant to be a one pager. this prevents the need of multiple HTML pages.
+const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
       <main class="master-sword-main">
@@ -10,6 +35,7 @@ const DYNAMIC_DATA = {
       </section>
     </main>
     `,
+    "item-popup": ` <main class="item-popup-main"></main>`,
     "cards-revealed": `
       <main>
   <section class="cards-container" role="list" aria-label="Skills List">
@@ -65,13 +91,18 @@ const DYNAMIC_DATA = {
 
 var hasInteracted = false;
 const masterSwordScene = new DOMParser().parseFromString(
-  DYNAMIC_DATA.Pages["master-sword"],
+  DYNAMIC_PAGES.Pages["master-sword"],
   "text/html"
 ).body.firstChild;
-// const cardsRevealedScene = new DOMParser().parseFromString(
-//   DYNAMIC_DATA.Pages["cards-revealed"],
-//   "text/html"
-// ).body.firstChild;
+
+const cardsRevealedScene = new DOMParser().parseFromString(
+  DYNAMIC_PAGES.Pages["cards-revealed"],
+  "text/html"
+).body.firstChild;
+const itemPopup = new DOMParser().parseFromString(
+  DYNAMIC_PAGES.Pages["item-popup"],
+  "text/html"
+).body.firstChild;
 const bodyElement = document.getElementsByTagName("body")[0];
 bodyElement.appendChild(masterSwordScene);
 
@@ -107,11 +138,7 @@ function draggableElement(draggableElementEvent) {
   }
 
   function elementDrag(e) {
-    // e.preventDefault();
-    // Check if the event is a touch event and get the correct coordinates
-    // var clientX = e.clientX || e.touches[0].clientX;
     var clientY = e.clientY || e.touches[0].clientY;
-
     // pos1 = pos3 - clientX;
     pos2 = pos4 - clientY;
     // pos3 = clientX;
@@ -121,11 +148,10 @@ function draggableElement(draggableElementEvent) {
       draggableElementEvent.offsetTop - pos2 + "px";
     draggableElementEvent.style.left =
       draggableElementEvent.offsetLeft - pos1 + "px";
-    // console.log(pos4);
 
     var bodyElement = document.getElementsByTagName("body")[0];
     function switchScenes() {
-      bodyElement.innerHTML = DYNAMIC_DATA.Pages["cards-revealed"];
+      bodyElement.replaceChild(itemPopup, masterSwordScene);
       bodyElement.classList.remove("master-sword-main-transition");
       function play() {
         var audio = new Audio("../docs/assets/audio/reveal-audio.mp3");
@@ -163,13 +189,13 @@ function draggableElement(draggableElementEvent) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("page is fully loaded");
-});
-
 // audio.play().catch((e) => {
 //   if (e.code === DOMException.ABORT_ERR) {
 //     return
 //   }
 //   throw e;
 // })
+
+itemPopup.addEventListener("click", () => {
+  bodyElement.replaceChild(cardsRevealedScene, itemPopup);
+});
