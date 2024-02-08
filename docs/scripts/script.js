@@ -1,7 +1,12 @@
 //  ______________________________________
 // ||     VARIABLES & API CALL         ||
-
 //  ______________________________________
+let dataStorage = {};
+let data;
+let imageElement;
+let dynamicImagePath;
+let flipCard;
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("page is fully loaded");
   getHyruleCompendiumAPI(12);
@@ -9,16 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function getHyruleCompendiumAPI(entryNumber) {
-  let data = {};
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/${entryNumber}?game=botw`
   );
-  data = await response.json();
+  dataStorage = await response.json();
+  // for ease of access, i store the data json inside another variable called 'data.' this is to prevent having to call keys out of this variable with 'data.data' later on, because of how the object is structured.
+  // it's also less confusing for the reader and for myself.
+  data = dataStorage.data;
+
+  imageElement = document.createElement("img");
+
+  dynamicImagePath = data.image;
+
   console.log(data);
-  const imageElement = document.createElement("img");
-  var imagePath = data.data.image;
-  console.log("IMAGE PATH:", imagePath);
-  imageElement.src = `${imagePath}`;
+  console.log("IMAGE PATH:", dynamicImagePath);
+  imageElement.src = `${dynamicImagePath}`;
   cardsRevealedScene.appendChild(imageElement);
 }
 
@@ -198,4 +208,8 @@ function draggableElement(draggableElementEvent) {
 
 itemPopup.addEventListener("click", () => {
   bodyElement.replaceChild(cardsRevealedScene, itemPopup);
+  flipCard = document.getElementsByClassName("flip-card__front-side")[0];
+  flipCard.appendChild(imageElement);
+
+  console.log(flipCard);
 });

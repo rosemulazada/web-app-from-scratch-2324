@@ -74,15 +74,17 @@ main.item-popup-main {
   gap: 2rem;
   height: 100vh;
   overflow-x: scroll;
-  width: 200%;
+  width: 400%;
   /* display: none; */
+  scroll-snap-type: x mandatory;
+  /* scroll-snap-align: center; */
 }
 
 .flip-card {
   perspective: 200rem;
   position: relative;
-  min-width: 10rem;
-  min-height: 17rem;
+  min-width: 20rem;
+  min-height: 40rem;
 }
 
 .flip-card__front-side,
