@@ -1,16 +1,22 @@
-//  ______________________________________
+// a link to the API i'm using: the Hyrule Compendium API
+// https://gadhagod.github.io/Hyrule-Compendium-API/#/
+
+//   _____________________________________
 // ||     VARIABLES & API CALL         ||
-//  ______________________________________
+//  _____________________________________
 let dataStorage = {};
 let data;
-let imageElement;
+let imageElement = document.createElement("img");
 let dynamicImagePath;
-let flipCard;
+let flipCard = document.getElementsByClassName("flip-card__back-side");
+let hasInteracted = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("page is fully loaded");
-  getHyruleCompendiumAPI(12);
-  getHyruleCompendiumAPI(13);
+  getHyruleCompendiumAPI(155);
+  getHyruleCompendiumAPI(156);
+  getHyruleCompendiumAPI(157);
+  getHyruleCompendiumAPI(158);
 });
 
 async function getHyruleCompendiumAPI(entryNumber) {
@@ -18,22 +24,23 @@ async function getHyruleCompendiumAPI(entryNumber) {
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/${entryNumber}?game=botw`
   );
   dataStorage = await response.json();
-  // for ease of access, i store the data json inside another variable called 'data.' this is to prevent having to call keys out of this variable with 'data.data' later on, because of how the object is structured.
+
+  // for ease of access, i store the data json inside another variable called 'data.'
+  // this is to prevent having to call keys out of this variable with 'data.data' later on,
+  // because of how the object is structured.
   // it's also less confusing for the reader and for myself.
   data = dataStorage.data;
-
-  imageElement = document.createElement("img");
-
   dynamicImagePath = data.image;
+  // here i log each entry of data i called from the api alongside its respective image in the same log.
+  console.log(data, "IMAGE PATH:", dynamicImagePath);
 
-  console.log(data);
-  console.log("IMAGE PATH:", dynamicImagePath);
   imageElement.src = `${dynamicImagePath}`;
-  cardsRevealedScene.appendChild(imageElement);
+  imageElement.alt = `${data.name}`;
 }
 
 // this variable contains all of my dynamic page data for this project, save from of course the API.
-// i store the html of the desired pages in an Object, since this is meant to be a one pager. this prevents the need of multiple HTML pages.
+// i store the html of the desired pages in an Object, since this is meant to be a one pager.
+// this prevents the need of multiple HTML pages.
 const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
@@ -99,7 +106,6 @@ const DYNAMIC_PAGES = {
   },
 };
 
-var hasInteracted = false;
 const masterSwordScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["master-sword"],
   "text/html"
@@ -208,8 +214,11 @@ function draggableElement(draggableElementEvent) {
 
 itemPopup.addEventListener("click", () => {
   bodyElement.replaceChild(cardsRevealedScene, itemPopup);
-  flipCard = document.getElementsByClassName("flip-card__front-side")[0];
-  flipCard.appendChild(imageElement);
+  // flipCard = document.getElementsByClassName("flip-card__back-side")[0];
+  // flipCard.appendChild(imageElement);
 
-  console.log(flipCard);
+  for (let i = 0; i < flipCard.length; i++) {
+    console.log(flipCard[i]);
+    flipCard[i].appendChild(imageElement.cloneNode());
+  }
 });
