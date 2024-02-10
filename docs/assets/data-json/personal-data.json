@@ -1,5 +1,9 @@
 {
   "name": "Rose Mulazada",
+  "username": "@cerithes",
+  "favorite-game": "The Legend of Zelda: Twilight Princess",
   "age": "20",
-  "example": [{ "lol": "rose" }]
+  "favorite-color": "red",
+  "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga, odit in qui consequuntur quisquam labore!",
+  "images": [{ "heart-container": "tba" }]
 }

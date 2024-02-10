@@ -1,11 +1,11 @@
 // a link to the API i'm using: the Hyrule Compendium API
 // https://gadhagod.github.io/Hyrule-Compendium-API/#/
 
-//   _____________________________________
-// ||     VARIABLES & API CALL         ||
-//  _____________________________________
+// **********************************
+// VARIABLES & API/JSON FILE CALLS //
+// *********************************
 let dataStorage = {};
-let apiData; // Replacing 'let data' with 'let apiData'
+let apiData;
 let imageElement = document.createElement("img");
 let dynamicImagePath;
 let flipCard = document.getElementsByClassName("flip-card__back-side");
@@ -24,8 +24,8 @@ async function getHyruleCompendiumAPI(entryNumber) {
   // this is to prevent having to call keys out of this variable with 'data.data' later on,
   // because of how the object is structured.
   // it's also less confusing for the reader and for myself.
-  apiData = dataStorage.data; // Replacing 'data' with 'apiData'
-  dynamicImagePath = apiData.image; // Replacing 'data.image' with 'apiData.image'
+  apiData = dataStorage.data;
+  dynamicImagePath = apiData.image;
   // here i log each entry of data i called from the api alongside its respective image in the same log.
   // console.log(apiData, "IMAGE PATH:", dynamicImagePath);
 
@@ -34,9 +34,36 @@ async function getHyruleCompendiumAPI(entryNumber) {
 
   allEntryData.push({
     entryNumber: entryNumber,
-    apiData: apiData, // Replacing 'data' with 'apiData'
+    apiData: apiData,
     dynamicImagePath: dynamicImagePath,
   });
+}
+
+async function fetchDataInOrder(entryNumbers) {
+  for (const entryNumber of entryNumbers) {
+    await getHyruleCompendiumAPI(entryNumber);
+  }
+  // console.log(allEntryData);
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const desiredEntryCallOrder = [155, 156, 157, 158];
+  await fetchDataInOrder(desiredEntryCallOrder);
+
+  getPersonalData();
+  getGuardianShield();
+});
+
+async function getGuardianShield() {
+  const response = await fetch(
+    `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_shield`
+  );
+
+  var guardianShieldData = await response.json();
+  console.log(guardianShieldData);
+  var guardianShieldImg = guardianShieldData.data.image;
+  console.log(guardianShieldImg);
+
 }
 
 async function getPersonalData() {
@@ -44,22 +71,6 @@ async function getPersonalData() {
   personalData = await response.json();
   console.log("PERSONAL DATA:", personalData.age);
 }
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // ik roep de data vooraf op, zodat de pagina de benodigde data om in te laden al heeft.
-  // voer de benodigde entryNumbers in.
-  // learned something about await; dont forget to document.
-
-  await Promise.all([
-    getHyruleCompendiumAPI(155),
-    getHyruleCompendiumAPI(156),
-    getHyruleCompendiumAPI(157),
-    getHyruleCompendiumAPI(158),
-  ]);
-
-  getPersonalData();
-});
-
 // this variable contains all of my dynamic page data for this project, save from of course the API.
 // i store the html of the desired pages in an Object, since this is meant to be a one pager.
 // this prevents the need of multiple HTML pages.
@@ -223,29 +234,28 @@ function draggableElement(draggableElementEvent) {
   }
 }
 
+itemPopup.addEventListener("click", () => {
+  bodyElement.replaceChild(cardsRevealedScene, itemPopup);
+  const secondH2Element = document.createElement("h2");
+  secondH2Element.textContent = `Rose Mulazada`;
+  flipCard[0].appendChild(secondH2Element);
+
+  
+  for (let i = 0; i < flipCard.length; i++) {
+    const dynamicImageEntry = document.createElement("img");
+    const h2Element = document.createElement("h2");
+
+    h2Element.textContent = `${allEntryData[i].apiData.name}`;
+
+    dynamicImageEntry.src = `${allEntryData[i].dynamicImagePath}`;
+
+    flipCard[i].appendChild(h2Element);
+    flipCard[i].appendChild(dynamicImageEntry.cloneNode());
+  }
+});
 // audio.play().catch((e) => {
 //   if (e.code === DOMException.ABORT_ERR) {
 //     return
 //   }
 //   throw e;
 // })
-
-itemPopup.addEventListener("click", () => {
-  bodyElement.replaceChild(cardsRevealedScene, itemPopup);
-
-  // for (let i = 0; i < allEntryData.length; i++) {
-  //   // console.log("ALL ENTRY DATA", allEntryData[i].data.image);
-  //   console.log("allEntryData logged with for loop");
-  // }
-
-  for (let i = 0; i < flipCard.length; i++) {
-    console.log(flipCard[i]);
-    let dynamicImageEntry = document.createElement("img");
-    let h2Element = document.createElement("h2");
-    console.log(h2Element);
-    h2Element.textContent = `${allEntryData[i].apiData.name}`;
-    dynamicImageEntry.src = `${allEntryData[i].dynamicImagePath}`;
-    flipCard[i].appendChild(h2Element);
-    flipCard[i].appendChild(dynamicImageEntry.cloneNode());
-  }
-});
