@@ -1,7 +1,5 @@
 {
-    "name":  [
-        {"lol":"rose"}
-        
-    ]
-
+  "name": "Rose Mulazada",
+  "age": "20",
+  "example": [{ "lol": "rose" }]
 }

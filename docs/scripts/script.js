@@ -5,7 +5,7 @@
 // ||     VARIABLES & API CALL         ||
 //  _____________________________________
 let dataStorage = {};
-let data;
+let apiData; // Replacing 'let data' with 'let apiData'
 let imageElement = document.createElement("img");
 let dynamicImagePath;
 let flipCard = document.getElementsByClassName("flip-card__back-side");
@@ -24,33 +24,40 @@ async function getHyruleCompendiumAPI(entryNumber) {
   // this is to prevent having to call keys out of this variable with 'data.data' later on,
   // because of how the object is structured.
   // it's also less confusing for the reader and for myself.
-  data = dataStorage.data;
-  dynamicImagePath = data.image;
+  apiData = dataStorage.data; // Replacing 'data' with 'apiData'
+  dynamicImagePath = apiData.image; // Replacing 'data.image' with 'apiData.image'
   // here i log each entry of data i called from the api alongside its respective image in the same log.
-  console.log(data, "IMAGE PATH:", dynamicImagePath);
+  // console.log(apiData, "IMAGE PATH:", dynamicImagePath);
 
   imageElement.src = `${dynamicImagePath}`;
-  imageElement.alt = `${data.name}`;
+  imageElement.alt = `${apiData.name}`;
 
   allEntryData.push({
     entryNumber: entryNumber,
-    data: data,
+    apiData: apiData, // Replacing 'data' with 'apiData'
     dynamicImagePath: dynamicImagePath,
   });
+}
+
+async function getPersonalData() {
+  const response = await fetch("./assets/data-json/personal-data.json");
+  personalData = await response.json();
+  console.log("PERSONAL DATA:", personalData.age);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   // ik roep de data vooraf op, zodat de pagina de benodigde data om in te laden al heeft.
   // voer de benodigde entryNumbers in.
   // learned something about await; dont forget to document.
-  await getHyruleCompendiumAPI(155);
-  await getHyruleCompendiumAPI(156);
-  await getHyruleCompendiumAPI(157);
-  await getHyruleCompendiumAPI(158);
-  console.log("ALL ENTRY DATA", allEntryData);
-  for (let i = 0; i < allEntryData.length; i++) {
-    console.log("allEntryData logged with for loop");
-  }
+
+  await Promise.all([
+    getHyruleCompendiumAPI(155),
+    getHyruleCompendiumAPI(156),
+    getHyruleCompendiumAPI(157),
+    getHyruleCompendiumAPI(158),
+  ]);
+
+  getPersonalData();
 });
 
 // this variable contains all of my dynamic page data for this project, save from of course the API.
@@ -78,10 +85,8 @@ const DYNAMIC_PAGES = {
       aria-label="Flip Card"
     >
       <section class="flip-card__front-side" aria-hidden="true">
-        First-front
       </section>
       <section class="flip-card__back-side" aria-hidden="true">
-        First-back
       </section>
     </section>
     <section
@@ -90,8 +95,8 @@ const DYNAMIC_PAGES = {
       tabindex="0"
       aria-label="Flip Card"
     >
-      <section class="flip-card__front-side" aria-hidden="true">Front</section>
-      <section class="flip-card__back-side" aria-hidden="true">Back</section>
+      <section class="flip-card__front-side" aria-hidden="true"></section>
+      <section class="flip-card__back-side" aria-hidden="true"></section>
     </section>
     <section
       class="flip-card box"
@@ -99,8 +104,8 @@ const DYNAMIC_PAGES = {
       tabindex="0"
       aria-label="Flip Card"
     >
-      <section class="flip-card__front-side" aria-hidden="true">Front</section>
-      <section class="flip-card__back-side" aria-hidden="true">Back</section>
+      <section class="flip-card__front-side" aria-hidden="true"></section>
+      <section class="flip-card__back-side" aria-hidden="true"></section>
     </section>
     <section
       class="flip-card box"
@@ -109,10 +114,8 @@ const DYNAMIC_PAGES = {
       aria-label="Flip Card"
     >
       <section class="flip-card__front-side" aria-hidden="true">
-        Last-front
       </section>
       <section class="flip-card__back-side" aria-hidden="true">
-        Last-back
       </section>
     </section>
   </section>
@@ -207,7 +210,7 @@ function draggableElement(draggableElementEvent) {
     if (clientY < 500 && !hasInteracted) {
       hasInteracted = true;
       bodyElement.classList.add("master-sword-main-transition");
-      setTimeout(switchScenes, 8000);
+      setTimeout(switchScenes, 1000);
       checkHasInteracted();
     }
   }
@@ -229,11 +232,20 @@ function draggableElement(draggableElementEvent) {
 
 itemPopup.addEventListener("click", () => {
   bodyElement.replaceChild(cardsRevealedScene, itemPopup);
-  // flipCard = document.getElementsByClassName("flip-card__back-side")[0];
-  // flipCard.appendChild(imageElement);
+
+  // for (let i = 0; i < allEntryData.length; i++) {
+  //   // console.log("ALL ENTRY DATA", allEntryData[i].data.image);
+  //   console.log("allEntryData logged with for loop");
+  // }
 
   for (let i = 0; i < flipCard.length; i++) {
     console.log(flipCard[i]);
-    flipCard[i].appendChild(imageElement.cloneNode());
+    let dynamicImageEntry = document.createElement("img");
+    let h2Element = document.createElement("h2");
+    console.log(h2Element);
+    h2Element.textContent = `${allEntryData[i].apiData.name}`;
+    dynamicImageEntry.src = `${allEntryData[i].dynamicImagePath}`;
+    flipCard[i].appendChild(h2Element);
+    flipCard[i].appendChild(dynamicImageEntry.cloneNode());
   }
 });

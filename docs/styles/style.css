@@ -115,6 +115,8 @@ main.item-popup-main {
   transform: rotateY(-180deg);
   background: hsl(215.9, 20%, 50%);
   color: hsl(215.9, 30%, 80%);
+  display: flex;
+  flex-direction: column;
 }
 
 .flip-card:hover .flip-card__front-side,
