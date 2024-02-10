@@ -5,5 +5,9 @@
   "age": "20",
   "favorite-color": "red",
   "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga, odit in qui consequuntur quisquam labore!",
-  "images": [{ "heart-container": "tba" }]
+  "images": [
+    { "heart-container": "tba" },
+    { "urbosa": "./docs/assets/images/urbosa.png" },
+    { "mipha": "./docs/assets/images/mipha.png" }
+  ]
 }

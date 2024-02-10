@@ -10,6 +10,7 @@ let imageElement = document.createElement("img");
 let dynamicImagePath;
 let flipCard = document.getElementsByClassName("flip-card__back-side");
 let hasInteracted = false;
+let guardianShieldImgPath;
 // maak een array aan om later alle opgehaalde data uit de API in te storen
 // dit doe ik zodat ik straks kan loopen adhv de length van deze data.
 let allEntryData = [];
@@ -39,38 +40,55 @@ async function getHyruleCompendiumAPI(entryNumber) {
   });
 }
 
-async function fetchDataInOrder(entryNumbers) {
-  for (const entryNumber of entryNumbers) {
-    await getHyruleCompendiumAPI(entryNumber);
-  }
-  // console.log(allEntryData);
+async function getGuardianInformation() {
+  const response = await fetch(
+    `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_stalker`
+  );
+  const guardianData = await response.json();
+  console.log("GUARDIAN DATA:", guardianData);
 }
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const desiredEntryCallOrder = [155, 156, 157, 158];
-  await fetchDataInOrder(desiredEntryCallOrder);
-
-  getPersonalData();
-  getGuardianShield();
-});
 
 async function getGuardianShield() {
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_shield`
   );
-
-  var guardianShieldData = await response.json();
-  console.log(guardianShieldData);
-  var guardianShieldImg = guardianShieldData.data.image;
-  console.log(guardianShieldImg);
-
+  let guardianShieldData = await response.json();
+  console.log("GUARDIAN SHIELD DATA:", guardianShieldData);
+  guardianShieldImgPath = guardianShieldData.data.image;
 }
+
+// async function fetchDataInOrder(entryNumbers) {
+//   for (const entryNumber of entryNumbers) {
+//     await getHyruleCompendiumAPI(entryNumber);
+//   }
+// }
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Fetch data for the first card
+  await getHyruleCompendiumAPI(155);
+
+  await Promise.all([
+    // getHyruleCompendiumAPI(156),
+    // getHyruleCompendiumAPI(157),
+    // getHyruleCompendiumAPI(158),
+  ]);
+
+  await getPersonalData();
+  await getGuardianShield();
+  await getGuardianInformation();
+});
 
 async function getPersonalData() {
   const response = await fetch("./assets/data-json/personal-data.json");
   personalData = await response.json();
-  console.log("PERSONAL DATA:", personalData.age);
+
+  console.log(
+    "PERSONAL DATA:",
+    personalData.images.find((img) => img.hasOwnProperty("urbosa")).urbosa
+  );
+  console.log("MY BIO", personalData.bio);
 }
+
 // this variable contains all of my dynamic page data for this project, save from of course the API.
 // i store the html of the desired pages in an Object, since this is meant to be a one pager.
 // this prevents the need of multiple HTML pages.
@@ -194,12 +212,12 @@ function draggableElement(draggableElementEvent) {
     draggableElementEvent.style.left =
       draggableElementEvent.offsetLeft - pos1 + "px";
 
-    var bodyElement = document.getElementsByTagName("body")[0];
+    let bodyElement = document.getElementsByTagName("body")[0];
     function switchScenes() {
       bodyElement.replaceChild(itemPopup, masterSwordScene);
       bodyElement.classList.remove("master-sword-main-transition");
       function play() {
-        var audio = new Audio("../docs/assets/audio/reveal-audio.mp3");
+        let audio = new Audio("../docs/assets/audio/reveal-audio.mp3");
         audio.play();
       }
       play();
@@ -208,7 +226,7 @@ function draggableElement(draggableElementEvent) {
     function checkHasInteracted() {
       if (hasInteracted === true) {
         function play() {
-          var audio = new Audio("../docs/assets/audio/buildup-audio.mp3");
+          let audio = new Audio("../docs/assets/audio/buildup-audio.mp3");
           audio.play();
         }
         console.log("hasInteracted is true");
@@ -240,18 +258,19 @@ itemPopup.addEventListener("click", () => {
   secondH2Element.textContent = `Rose Mulazada`;
   flipCard[0].appendChild(secondH2Element);
 
-  
-  for (let i = 0; i < flipCard.length; i++) {
-    const dynamicImageEntry = document.createElement("img");
-    const h2Element = document.createElement("h2");
+  const guardianShieldImg = document.createElement("img");
+  guardianShieldImg.src = `${guardianShieldImgPath}`;
+  flipCard[1].appendChild(guardianShieldImg);
+  const dynamicImageEntry = document.createElement("img");
+  const h2Element = document.createElement("h2");
 
-    h2Element.textContent = `${allEntryData[i].apiData.name}`;
+  h2Element.textContent = `${apiData.name}`;
 
-    dynamicImageEntry.src = `${allEntryData[i].dynamicImagePath}`;
+  dynamicImageEntry.src = `${dynamicImagePath}`;
 
-    flipCard[i].appendChild(h2Element);
-    flipCard[i].appendChild(dynamicImageEntry.cloneNode());
-  }
+  flipCard[0].appendChild(h2Element);
+  flipCard[0].appendChild(dynamicImageEntry.cloneNode());
+  for (let i = 0; i < flipCard.length; i++) {}
 });
 // audio.play().catch((e) => {
 //   if (e.code === DOMException.ABORT_ERR) {
