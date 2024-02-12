@@ -7,6 +7,8 @@
   padding: 0;
   box-sizing: border-box;
   min-width: 0;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* *********/
@@ -173,6 +175,14 @@ main.cards-revealed-main > h1:first-of-type {
   /* flex-direction: column; */
 }
 
+.column-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.flip-card__back-side h1,
 .flip-card__back-side h2 {
   font-size: 2rem;
   font-family: "Hylia Serif", sans-serif;
@@ -265,6 +275,9 @@ main.cards-revealed-main > h1:first-of-type {
     max-width: 100%;
     justify-content: center;
   }
+  .flip-card:hover {
+    filter: drop-shadow(16px 16px 30px rgba(255, 255, 255, 0.2));
+  }
 }
 
 #urbosa-img-element,
@@ -283,10 +296,6 @@ main.cards-revealed-main > h1:first-of-type {
 .hyrule-crest {
   width: 100%;
   opacity: 0.5;
-}
-
-.flip-card:hover {
-  filter: drop-shadow(16px 16px 30px rgba(255, 255, 255, 0.2));
 }
 
 .flip-card:hover .hyrule-crest {

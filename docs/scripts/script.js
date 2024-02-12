@@ -83,7 +83,7 @@ const DYNAMIC_PAGES = {
 
         <section id="master-sword-container">
           <section id="master-sword">
-            <img src="./assets/images/sharp-mastersword.png" />
+            <img src="./assets/images/sharp-mastersword.png" alt="Master Sword"/>
           </section>
         </section>
       </main>
@@ -103,7 +103,7 @@ const DYNAMIC_PAGES = {
             <section class="flip-card__front-side" aria-hidden="true">
               <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest" aria-label="Image: Hyrule Crest"/>
             </section>
-            <section class="flip-card__back-side"></section>
+            <section class="flip-card__back-side column-reverse"></section>
           </section>
           <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
             <section class="flip-card__front-side" aria-hidden="true">
@@ -314,28 +314,33 @@ itemPopup.addEventListener("click", () => {
   // **************************
   // flipCard 0: About me! //
   // *************************
-  const developerName = document.createElement("h2");
+  const developerName = document.createElement("h1");
+  const flipCardTwoHeading = document.createElement("h2");
+
   developerName.textContent = `${personalData.name}`;
+  flipCardTwoHeading.textContent = `${personalData.flipCardTwoHeading}`;
+
+  flipCard[1].appendChild(flipCardTwoHeading);
   flipCard[0].appendChild(developerName);
 
-  const personalDataIntroduction =
-    personalData.pagetitles[0].cardsrevealed[0].flipCardOne[0].introduction;
+  const personalDataIntroduction = personalData.introduction;
 
-  // Loop over the 'storage' array
   for (let i = 0; i < personalDataIntroduction.length; i++) {
-    // Create a wrapping div for each set of elements
     const wrapperDiv = document.createElement("div");
 
     const developerLabel = document.createElement("h3");
-    developerLabel.textContent = personalDataIntroduction[i].label || ""; // Use 'storage' instead of 'personalData.introduction'
+    developerLabel.textContent = personalDataIntroduction[i].label || "";
 
     const developerValue = document.createElement("p");
     developerValue.textContent = personalDataIntroduction[i].value;
 
     wrapperDiv.appendChild(developerLabel);
     wrapperDiv.appendChild(developerValue);
-
     flipCard[0].appendChild(wrapperDiv);
+
+    if (i === personalDataIntroduction.length - 1) {
+      developerLabel.setAttribute("aria-label", "about me");
+    }
   }
 
   // ********************************************
