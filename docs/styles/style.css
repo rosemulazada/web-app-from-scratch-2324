@@ -267,7 +267,7 @@ main.cards-revealed-main > h1:first-of-type {
     justify-content: center;
   }
   .flip-card:hover {
-    filter: drop-shadow(16px 16px 30px rgba(255, 255, 255, 0.2));
+    filter: drop-shadow(16px 16px 30px rgba(0, 0, 0, 0.354));
   }
 }
 
@@ -304,5 +304,136 @@ main.cards-revealed-main > h1:first-of-type {
 
   100% {
     transform: translateY(-20%);
+  }
+}
+
+main.item-popup-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+main.item-popup-main .zelda--highlight {
+  color: #3de2c8;
+}
+
+main.item-popup-main .zelda--dialog--wrap {
+  background: #1b1a1a;
+  width: 90vw;
+  height: 150px;
+  border-radius: 10px;
+  position: relative;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+main.item-popup-main .zelda--dialog--wrap:before,
+main.item-popup-main .zelda--dialog--wrap:after {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  box-shadow: -20px 0 0px -15px #bebebe;
+  content: "";
+  position: absolute;
+  top: 25px;
+}
+
+main.item-popup-main .zelda--dialog--wrap:before {
+  left: 20px;
+}
+
+main.item-popup-main .zelda--dialog--wrap:after {
+  right: 20px;
+  transform: rotate(180deg);
+}
+
+main.item-popup-main .zelda--dialog--inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main.item-popup-main .zelda--dialog--inner:before,
+main.item-popup-main .zelda--dialog--inner:after {
+  height: 5px;
+  width: 5px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 0px 5px #1b1a1a;
+  background: #bebebe;
+  position: absolute;
+  content: "";
+  top: 72px;
+  z-index: 2;
+}
+
+main.item-popup-main .zelda--dialog--inner:before {
+  left: 16px;
+}
+
+main.item-popup-main .zelda--dialog--inner:after {
+  right: 16px;
+}
+
+/* main.item-popup-main .zelda--name {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0px 0px 2px black, 0px 0px 4px black, 0px 0px 6px black;
+  margin-left: 10%;
+  position: absolute;
+  top: -25px;
+} */
+
+main.item-popup-main .zelda--dialog--text {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 66.666%;
+  margin: 0;
+}
+
+main.item-popup-main .zelda--triangle {
+  width: 30px;
+  height: 20px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: #bebebe;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  animation: float 3.4s infinite;
+}
+
+main.item-popup-main .zelda--triangle:before {
+  content: "";
+  width: 18px;
+  height: 12px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: #1b1a1a;
+  position: absolute;
+  right: 6px;
+  top: 3px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  24% {
+    transform: translateY(-6.56px);
+  }
+  40% {
+    transform: translateY(6.28px);
+  }
+  66% {
+    transform: translateY(-2.56px);
   }
 }

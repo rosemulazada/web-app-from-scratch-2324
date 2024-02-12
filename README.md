@@ -116,6 +116,8 @@ const DYNAMIC_PAGES = {
 ## External data sources
 
 1. Draggable HTML Element: W3Schools https://www.w3schools.com/howto/howto_js_draggable.asp
+2. Cards background https://www.deviantart.com/sunnytp/art/Sheikah-system-wallpaper-1920-1080-764159748
+3. Zelda Dialogue Box: https://codepen.io/mHansen/pen/xxZwLVY
 
 <!-- replace the code in the /docs folder with your own, so you can showcase your work with GitHub Pages 🌍 -->
 
