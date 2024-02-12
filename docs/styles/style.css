@@ -171,15 +171,6 @@ main.cards-revealed-main > h1:first-of-type {
   padding: 2rem;
   justify-content: flex-start;
   align-items: flex-start;
-  /* display: flex; */
-  /* flex-direction: column; */
-}
-
-.column-reverse {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  align-items: flex-start;
 }
 
 .flip-card__back-side h1,
@@ -314,7 +305,4 @@ main.cards-revealed-main > h1:first-of-type {
   100% {
     transform: translateY(-20%);
   }
-}
-
-#master-sword-container {
 }

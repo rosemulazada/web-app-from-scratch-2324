@@ -1,0 +1,15 @@
+{
+  "firstName": "Rose",
+  "lastName": "Mulazada",
+  "avatar_url": "https://tiermaker.com/images/chart/chart/the-legend-of-zelda-characters-142417/square9png.png",
+  "age": 20,
+  "city": "Amsterdam",
+  "hobbies": ["Gaming", "Singing", "Drawing", "Coding"],
+  "truthsAndLies": [
+    "Ik heb een bril",
+    "Mijn lievelingseten is pizza",
+    "Ik ben geboren in de zomer"
+  ],
+  "bio": "A born creative with an affinity for all things tech and all things Zelda, she likes to share about her interest with others.. which is what she's doing here!",
+  "favouriteAnimal": "Suikereekhorn"
+}

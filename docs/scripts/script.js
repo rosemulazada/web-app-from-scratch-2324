@@ -103,7 +103,7 @@ const DYNAMIC_PAGES = {
             <section class="flip-card__front-side" aria-hidden="true">
               <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest" aria-label="Image: Hyrule Crest"/>
             </section>
-            <section class="flip-card__back-side column-reverse"></section>
+            <section class="flip-card__back-side"></section>
           </section>
           <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
             <section class="flip-card__front-side" aria-hidden="true">
@@ -304,7 +304,6 @@ function draggableElement(draggableElementEvent) {
 itemPopup.addEventListener("click", () => {
   // replaces the html for the item popup scene for the cards scene
   bodyElement.replaceChild(cardsRevealedScene, itemPopup);
-  flipCard[1].appendChild(p);
 
   // will later be used to make sure some specific data is properly capitalised, as it isn't done so directly from the api.
   function capitalizeEachWord(string) {
@@ -322,6 +321,7 @@ itemPopup.addEventListener("click", () => {
 
   flipCard[1].appendChild(flipCardTwoHeading);
   flipCard[0].appendChild(developerName);
+  flipCard[1].appendChild(p);
 
   const personalDataIntroduction = personalData.introduction;
 
