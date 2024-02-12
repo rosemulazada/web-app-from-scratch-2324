@@ -166,7 +166,7 @@ const itemPopup = new DOMParser().parseFromString(
 ).body.firstChild;
 
 const bodyElement = document.getElementsByTagName("body")[0];
-bodyElement.appendChild(itemPopup);
+bodyElement.appendChild(masterSwordScene);
 
 console.log(masterSwordScene.outerHTML);
 
