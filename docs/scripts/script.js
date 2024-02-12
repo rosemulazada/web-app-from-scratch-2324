@@ -160,107 +160,146 @@ bodyElement.appendChild(masterSwordScene);
 
 console.log(masterSwordScene.outerHTML);
 
-hasInteracted = true;
+// hasInteracted = true;
 console.log(hasInteracted);
 
 const imageElement = masterSwordScene.querySelector("#master-sword img");
 
-// Now you can access the image element
-console.log(imageElement);
+// // Now you can access the image element
+// console.log(imageElement);
 
-if (hasInteracted) {
-  masterSwordScene.addEventListener("click", () => {
-    // Adding a class for animation
-    imageElement.classList.add("master-sword-animation");
-    console.log("clicked");
-    bodyElement.classList.add("master-sword-main-transition");
-    setTimeout(switchScenes, 8000);
-    checkHasInteracted();
-  });
-}
+// if (hasInteracted) {
+//   imageElement.addEventListener("click", () => {
+//     // Adding a class for animation
+//     imageElement.classList.add("master-sword-animation");
+//     console.log("clicked");
+//     bodyElement.classList.add("master-sword-main-transition");
+//     setTimeout(switchScenes, 8000);
+//     checkHasInteracted();
+//   });
+// }
 
 // an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
 //make the DIV element draggable:
-// draggableElement(document.getElementById("master-sword-container"));
+draggableElement(document.getElementById("master-sword-container"));
 
-// function draggableElement(draggableElementEvent) {
-//   var pos1 = 0;
-//   //   pos2 = 0,
-//   //   pos3 = 0,
-//   //   pos4 = 0;
+function draggableElement(draggableElementEvent) {
+  var pos1 = 0;
+  var pos2 = 0;
+  var pos3 = 0;
+  var pos4 = 0;
 
-//   // Check for both mousedown and touchstart events
-//   if (document.getElementById("master-sword")) {
-//     draggableElementEvent.addEventListener("mousedown", dragMouseDown);
-//     draggableElementEvent.addEventListener("touchstart", dragMouseDown);
-//   }
+  if (document.getElementById("master-sword")) {
+    draggableElementEvent.addEventListener("mousedown", dragMouseDown);
+    // draggableElementEvent.addEventListener("click", dragMouseDown);
+    draggableElementEvent.addEventListener("touchstart", dragMouseDown);
+    // Add keyboard event listeners
+    document.addEventListener("keydown", handleKeyDown);
+  }
 
-//   function dragMouseDown(e) {
-//     e.preventDefault();
-//     // Check if the event is a touch event and get the correct coordinates
-//     // var clientX = e.clientX || e.touches[0].clientX;
-//     var clientY = e.clientY || e.touches[0].clientY;
+  function dragMouseDown(e) {
+    e.preventDefault();
+    // var clientX = e.clientX || e.touches[0].clientX;
+    var clientY = e.clientY || e.touches[0].clientY;
 
-//     // pos3 = clientX;
-//     pos4 = clientY;
+    // pos3 = clientX;
+    pos4 = clientY;
 
-//     document.addEventListener("mouseup", closeDragElement);
-//     document.addEventListener("touchend", closeDragElement);
-//     document.addEventListener("mousemove", elementDrag);
-//     document.addEventListener("touchmove", elementDrag);
-//   }
+    document.addEventListener("mouseup", closeDragElement);
+    document.addEventListener("touchend", closeDragElement);
+    document.addEventListener("mousemove", elementDrag);
+    document.addEventListener("touchmove", elementDrag);
+  }
 
-//   function elementDrag(e) {
-//     var clientY = e.clientY || e.touches[0].clientY;
-//     // pos1 = pos3 - clientX;
-//     pos2 = pos4 - clientY;
-//     // pos3 = clientX;
-//     pos4 = clientY;
+  function elementDrag(e) {
+    // var clientX = e.clientX || e.touches[0].clientX;
+    var clientY = e.clientY || e.touches[0].clientY;
 
-//     draggableElementEvent.style.top =
-//       draggableElementEvent.offsetTop - pos2 + "px";
-//     draggableElementEvent.style.left =
-//       draggableElementEvent.offsetLeft - pos1 + "px";
+    // pos1 = pos3 - clientX;
+    pos2 = pos4 - clientY;
+    // pos3 = clientX;
+    pos4 = clientY;
 
-//     let bodyElement = document.getElementsByTagName("body")[0];
-//     function switchScenes() {
-//       bodyElement.replaceChild(itemPopup, masterSwordScene);
-//       bodyElement.classList.remove("master-sword-main-transition");
-//       function play() {
-//         let audio = new Audio("./assets/audio/reveal-audio.mp3");
-//         audio.play();
-//       }
-//       play();
-//     }
+    draggableElementEvent.style.top =
+      draggableElementEvent.offsetTop - pos2 + "px";
+    draggableElementEvent.style.left =
+      draggableElementEvent.offsetLeft - pos1 + "px";
 
-//     function checkHasInteracted() {
-//       if (hasInteracted === true) {
-//         function play() {
-//           let audio = new Audio("./assets/audio/buildup-audio.mp3");
-//           audio.play();
-//         }
-//         console.log("hasInteracted is true");
-//         play();
-//       } else {
-//         console.log("hasInteracted is false");
-//       }
-//     }
+    let bodyElement = document.getElementsByTagName("body")[0];
+    function switchScenes() {
+      bodyElement.replaceChild(itemPopup, masterSwordScene);
+      bodyElement.classList.remove("master-sword-main-transition");
+      function play() {
+        let audio = new Audio("./assets/audio/reveal-audio.mp3");
+        audio.play();
+      }
+      play();
+    }
 
-//     if (clientY < 400 && !hasInteracted) {
-//       hasInteracted = true;
-//       bodyElement.classList.add("master-sword-main-transition");
-//       setTimeout(switchScenes, 8000);
-//       checkHasInteracted();
-//     }
-//   }
+    function checkHasInteracted() {
+      if (hasInteracted === true) {
+        function play() {
+          let audio = new Audio("./assets/audio/buildup-audio.mp3");
+          audio.play();
+        }
+        console.log("hasInteracted is true");
+        play();
+      } else {
+        console.log("hasInteracted is false");
+      }
+    }
 
-//   function closeDragElement() {
-//     document.removeEventListener("mouseup", closeDragElement);
-//     document.removeEventListener("touchend", closeDragElement);
-//     document.removeEventListener("mousemove", elementDrag);
-//     document.removeEventListener("touchmove", elementDrag);
-//   }
-// }
+    if (clientY < 400 && !hasInteracted) {
+      hasInteracted = true;
+      bodyElement.classList.add("master-sword-main-transition");
+      setTimeout(switchScenes, 8000);
+      checkHasInteracted();
+    }
+  }
+
+  function handleKeyDown(e) {
+    switch (e.key) {
+      case "ArrowUp":
+        pos2 += 10;
+        break;
+    }
+
+    draggableElementEvent.style.top =
+      draggableElementEvent.offsetTop - pos2 + "px";
+    draggableElementEvent.style.left =
+      draggableElementEvent.offsetLeft - pos1 + "px";
+
+    function checkHasInteracted() {
+      if (hasInteracted === true) {
+        function play() {
+          let audio = new Audio("./assets/audio/buildup-audio.mp3");
+          audio.play();
+        }
+        console.log("hasInteracted is true");
+        play();
+      } else {
+        console.log("hasInteracted is false");
+      }
+    }
+
+    if (pos2 > 20 && !hasInteracted) {
+      hasInteracted = true;
+      bodyElement.classList.add("master-sword-main-transition");
+      setTimeout(switchScenes, 8000);
+      checkHasInteracted();
+      console.log(pos2);
+    }
+  }
+
+  function closeDragElement() {
+    document.removeEventListener("mouseup", closeDragElement);
+    document.removeEventListener("touchend", closeDragElement);
+    document.removeEventListener("mousemove", elementDrag);
+    document.removeEventListener("touchmove", elementDrag);
+    // Remove keyboard event listener
+    document.removeEventListener("keydown", handleKeyDown);
+  }
+}
 
 itemPopup.addEventListener("click", () => {
   // replaces the html for the item popup scene for the cards scene
