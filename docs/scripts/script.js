@@ -67,7 +67,7 @@ const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
       <main class="master-sword-main">
-        <div class="zelda--wrap">
+      <!--  <div class="zelda--wrap">
           <div class="zelda--dialog--wrap">
             <p class="zelda--name">Rose</p>
             <div class="zelda--dialog--inner">
@@ -79,7 +79,7 @@ const DYNAMIC_PAGES = {
             </div>
             <div class="zelda--triangle"></div>
           </div>
-        </div>
+        </div> -->
 
         <section id="master-sword-container">
           <section id="master-sword">
@@ -117,6 +117,29 @@ const DYNAMIC_PAGES = {
   },
 };
 
+function switchScenes() {
+  bodyElement.replaceChild(itemPopup, masterSwordScene);
+  bodyElement.classList.remove("master-sword-main-transition");
+  function play() {
+    let audio = new Audio("./assets/audio/reveal-audio.mp3");
+    audio.play();
+  }
+  play();
+}
+
+function checkHasInteracted() {
+  if (hasInteracted === true) {
+    function play() {
+      let audio = new Audio("./assets/audio/buildup-audio.mp3");
+      audio.play();
+    }
+    console.log("hasInteracted is true");
+    play();
+  } else {
+    console.log("hasInteracted is false");
+  }
+}
+
 const masterSwordScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["master-sword"],
   "text/html"
@@ -126,95 +149,118 @@ const cardsRevealedScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["cards-revealed"],
   "text/html"
 ).body.firstChild;
+
 const itemPopup = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["item-popup"],
   "text/html"
 ).body.firstChild;
+
 const bodyElement = document.getElementsByTagName("body")[0];
 bodyElement.appendChild(masterSwordScene);
 
-// an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
-//Make the DIV element draggable:
-draggableElement(document.getElementById("master-sword-container"));
+console.log(masterSwordScene.outerHTML);
 
-function draggableElement(draggableElementEvent) {
-  var pos1 = 0;
-  //   pos2 = 0,
-  //   pos3 = 0,
-  //   pos4 = 0;
+hasInteracted = true;
+console.log(hasInteracted);
 
-  // Check for both mousedown and touchstart events
-  if (document.getElementById("master-sword")) {
-    draggableElementEvent.addEventListener("mousedown", dragMouseDown);
-    draggableElementEvent.addEventListener("touchstart", dragMouseDown);
-  }
+const imageElement = masterSwordScene.querySelector("#master-sword img");
 
-  function dragMouseDown(e) {
-    e.preventDefault();
-    // Check if the event is a touch event and get the correct coordinates
-    // var clientX = e.clientX || e.touches[0].clientX;
-    var clientY = e.clientY || e.touches[0].clientY;
+// Now you can access the image element
+console.log(imageElement);
 
-    // pos3 = clientX;
-    pos4 = clientY;
-
-    document.addEventListener("mouseup", closeDragElement);
-    document.addEventListener("touchend", closeDragElement);
-    document.addEventListener("mousemove", elementDrag);
-    document.addEventListener("touchmove", elementDrag);
-  }
-
-  function elementDrag(e) {
-    var clientY = e.clientY || e.touches[0].clientY;
-    // pos1 = pos3 - clientX;
-    pos2 = pos4 - clientY;
-    // pos3 = clientX;
-    pos4 = clientY;
-
-    draggableElementEvent.style.top =
-      draggableElementEvent.offsetTop - pos2 + "px";
-    draggableElementEvent.style.left =
-      draggableElementEvent.offsetLeft - pos1 + "px";
-
-    let bodyElement = document.getElementsByTagName("body")[0];
-    function switchScenes() {
-      bodyElement.replaceChild(itemPopup, masterSwordScene);
-      bodyElement.classList.remove("master-sword-main-transition");
-      function play() {
-        let audio = new Audio("./assets/audio/reveal-audio.mp3");
-        audio.play();
-      }
-      play();
-    }
-
-    function checkHasInteracted() {
-      if (hasInteracted === true) {
-        function play() {
-          let audio = new Audio("./assets/audio/buildup-audio.mp3");
-          audio.play();
-        }
-        console.log("hasInteracted is true");
-        play();
-      } else {
-        console.log("hasInteracted is false");
-      }
-    }
-
-    if (clientY < 400 && !hasInteracted) {
-      hasInteracted = true;
-      bodyElement.classList.add("master-sword-main-transition");
-      setTimeout(switchScenes, 8000);
-      checkHasInteracted();
-    }
-  }
-
-  function closeDragElement() {
-    document.removeEventListener("mouseup", closeDragElement);
-    document.removeEventListener("touchend", closeDragElement);
-    document.removeEventListener("mousemove", elementDrag);
-    document.removeEventListener("touchmove", elementDrag);
-  }
+if (hasInteracted) {
+  masterSwordScene.addEventListener("click", () => {
+    // Adding a class for animation
+    imageElement.classList.add("master-sword-animation");
+    console.log("clicked");
+    bodyElement.classList.add("master-sword-main-transition");
+    setTimeout(switchScenes, 8000);
+    checkHasInteracted();
+  });
 }
+
+// an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
+//make the DIV element draggable:
+// draggableElement(document.getElementById("master-sword-container"));
+
+// function draggableElement(draggableElementEvent) {
+//   var pos1 = 0;
+//   //   pos2 = 0,
+//   //   pos3 = 0,
+//   //   pos4 = 0;
+
+//   // Check for both mousedown and touchstart events
+//   if (document.getElementById("master-sword")) {
+//     draggableElementEvent.addEventListener("mousedown", dragMouseDown);
+//     draggableElementEvent.addEventListener("touchstart", dragMouseDown);
+//   }
+
+//   function dragMouseDown(e) {
+//     e.preventDefault();
+//     // Check if the event is a touch event and get the correct coordinates
+//     // var clientX = e.clientX || e.touches[0].clientX;
+//     var clientY = e.clientY || e.touches[0].clientY;
+
+//     // pos3 = clientX;
+//     pos4 = clientY;
+
+//     document.addEventListener("mouseup", closeDragElement);
+//     document.addEventListener("touchend", closeDragElement);
+//     document.addEventListener("mousemove", elementDrag);
+//     document.addEventListener("touchmove", elementDrag);
+//   }
+
+//   function elementDrag(e) {
+//     var clientY = e.clientY || e.touches[0].clientY;
+//     // pos1 = pos3 - clientX;
+//     pos2 = pos4 - clientY;
+//     // pos3 = clientX;
+//     pos4 = clientY;
+
+//     draggableElementEvent.style.top =
+//       draggableElementEvent.offsetTop - pos2 + "px";
+//     draggableElementEvent.style.left =
+//       draggableElementEvent.offsetLeft - pos1 + "px";
+
+//     let bodyElement = document.getElementsByTagName("body")[0];
+//     function switchScenes() {
+//       bodyElement.replaceChild(itemPopup, masterSwordScene);
+//       bodyElement.classList.remove("master-sword-main-transition");
+//       function play() {
+//         let audio = new Audio("./assets/audio/reveal-audio.mp3");
+//         audio.play();
+//       }
+//       play();
+//     }
+
+//     function checkHasInteracted() {
+//       if (hasInteracted === true) {
+//         function play() {
+//           let audio = new Audio("./assets/audio/buildup-audio.mp3");
+//           audio.play();
+//         }
+//         console.log("hasInteracted is true");
+//         play();
+//       } else {
+//         console.log("hasInteracted is false");
+//       }
+//     }
+
+//     if (clientY < 400 && !hasInteracted) {
+//       hasInteracted = true;
+//       bodyElement.classList.add("master-sword-main-transition");
+//       setTimeout(switchScenes, 8000);
+//       checkHasInteracted();
+//     }
+//   }
+
+//   function closeDragElement() {
+//     document.removeEventListener("mouseup", closeDragElement);
+//     document.removeEventListener("touchend", closeDragElement);
+//     document.removeEventListener("mousemove", elementDrag);
+//     document.removeEventListener("touchmove", elementDrag);
+//   }
+// }
 
 itemPopup.addEventListener("click", () => {
   // replaces the html for the item popup scene for the cards scene
