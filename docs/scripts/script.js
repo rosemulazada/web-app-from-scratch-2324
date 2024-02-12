@@ -5,81 +5,60 @@
 // VARIABLES & API/JSON FILE CALLS //
 // *********************************
 let dataStorage = {};
-// let apiData;
-// let imageElement = document.createElement("img");
-// let dynamicImagePath;
 let flipCard = document.getElementsByClassName("flip-card__back-side");
 let hasInteracted = false;
 let guardianShieldImgPath;
 let p;
 let imgElementUrbosa;
-var guardianData;
-// maak een array aan om later alle opgehaalde data uit de API in te storen
-// dit doe ik zodat ik straks kan loopen adhv de length van deze data.
-// let allEntryData = [];
+let guardianData;
 
-// deze functie neemt als parameter 'entryNumber', dit is het getal van de entry van het karakter dat je wilt oproepen uit de API.
-// async function getHyruleCompendiumAPI(entryNumber) {
-//   const response = await fetch(
-//     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/${entryNumber}?game=botw`
-//   );
-//   dataStorage = await response.json();
-//   // for ease of access, i store the data json inside another variable called 'data.'
-//   // this is to prevent having to call keys out of this variable with 'data.data' later on,
-//   // because of how the object is structured.
-//   // it's also less confusing for the reader and for myself.
-//   apiData = dataStorage.data;
-//   dynamicImagePath = apiData.image;
-//   // here i log each entry of data i called from the api alongside its respective image in the same log.
-//   // console.log(apiData, "IMAGE PATH:", dynamicImagePath);
-
-//   imageElement.src = `${dynamicImagePath}`;
-//   imageElement.alt = `${apiData.name}`;
-
-//   // allEntryData.push({
-//   //   entryNumber: entryNumber,
-//   //   apiData: apiData,
-//   //   dynamicImagePath: dynamicImagePath,
-//   // });
-// }
-
+// get the information from this compendium about the guardian stalker entity
 async function getGuardianInformation() {
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_stalker`
   );
+  // store data in let guardianData
   guardianData = await response.json();
+  // log it so i can easily see what i need to access later on.
   console.log("GUARDIAN DATA:", guardianData);
 }
 
+// get information about the item guardian shield
 async function getGuardianShield() {
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_shield`
   );
+  // store data in variable guardianShieldData
   let guardianShieldData = await response.json();
+  // log to view data structure
   console.log("GUARDIAN SHIELD DATA:", guardianShieldData);
+  // for ease of adding a .src to an image element i will create later, i store it here since it's only one image.
   guardianShieldImgPath = guardianShieldData.data.image;
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await Promise.all([
-    // getHyruleCompendiumAPI(155),
-    getGuardianShield(),
-    getGuardianInformation(),
-  ]);
-
-  await getPersonalData();
-});
-
+// get personal json file from repo
 async function getPersonalData() {
   const response = await fetch("./assets/data-json/personal-data.json");
+  // store in let personalData
   personalData = await response.json();
-
+  // log BIO to see ahead of time before i even access the page i need it for whether or not it is found.
   console.log("MY BIO", personalData.favcharactersbio);
 
+  // here, i create a p element and store the necessary data from the json ahead of time, just for ease so i know where to find it should i need to make changes.
   p = document.createElement("p");
+  // i use innerHTML here specifically over textContent because the text being appended contains HTML elements that were initially being loaded as strings.
   p.innerHTML = `${personalData.favcharactersbio}`;
   console.log("paragraph", p);
 }
+// since getGuardianShield and getGuardianInformation are not local files like getPersonalData, i await the promise before any actions are undertaken.
+// i do this because, when you would go through the page too fast (fast meaning before the api can retrieve its necessary data, which realistically
+// would never happen because it takes 8 seconds) before you can even go to the second page which you still have to go through before you go to the third),
+// it still bothered me while editing.
+// now, the any images i retrieve from the API will not be appended until the data is ready and the promise is fulfilled.
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([getGuardianShield(), getGuardianInformation()]);
+  await getPersonalData();
+});
 
 // this variable contains all of my dynamic page data for this project, save from of course the API.
 // i store the html of the desired pages in an Object, since this is meant to be a one pager.
@@ -112,25 +91,25 @@ const DYNAMIC_PAGES = {
     "item-popup": `<main class="item-popup-main"></main>`,
     "cards-revealed": `
       <main class="cards-revealed-main">
-        <h1>View your cards!</h1>
-        <section class="cards-container" role="list" aria-label="Skills List">
+        <h1 aria-label="Heading: View your cards!">View your cards!</h1>
+        <section class="cards-container" role="list" aria-label="About me List">
           <section class="flip-card box" tabindex="0" aria-label="Flip Card">
             <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
+              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest" aria-label="Image: Hyrule Crest"/>
             </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
+            <section class="flip-card__back-side"></section>
           </section>
           <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
             <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
+              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest" aria-label="Image: Hyrule Crest"/>
             </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
+            <section class="flip-card__back-side"></section>
           </section>
           <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
             <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
+              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest" aria-label="Image: Hyrule Crest"/>
             </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
+            <section class="flip-card__back-side"></section>
           </section>
         </section>
       </main>
