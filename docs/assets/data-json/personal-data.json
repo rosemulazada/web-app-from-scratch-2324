@@ -1,13 +1,36 @@
 {
   "name": "Rose Mulazada",
-  "username": "@cerithes",
-  "favorite-game": "The Legend of Zelda: Twilight Princess",
-  "age": "20",
-  "favorite-color": "red",
-  "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga, odit in qui consequuntur quisquam labore!",
+  "favcharactersbio": "My favorite Champions are <img id=\"urbosa-img-element\"> <span id=\"urbosa-span-element\"></span> and <img id=\"mipha-img-element\"> <span id=\"mipha-span-element\"></span>. My favorite enemies to fight are </span> <img id=\"guardianstalker-img-element\"> <span id=\"guardianstalker-span-element\">",
+  "characternames": [{ "urbosa": "Urbosa" }, { "mipha": "Mipha" }],
   "images": [
-    { "heart-container": "tba" },
-    { "urbosa": "./docs/assets/images/urbosa.png" },
-    { "mipha": "./docs/assets/images/mipha.png" }
+    { "heart-container": "./assets/images/heart-container.png" },
+    { "urbosa": "./assets/images/urbosa.png" },
+    { "mipha": "./assets/images/mipha.png" }
+  ],
+  "alttext": [
+    {
+      "urbosa": "Picture of the Gerudo warrior from Breath of The Wild, Urbosa."
+    },
+    { "mipha": "Picture of the Zora warrior from Breath of The Wild, Mipha." }
+  ],
+  "pagetitles": [
+    {
+      "cardsrevealed": [
+        {
+          "flipCardOne": [
+            {
+              "introduction": [
+                { "label": "👾", "value": "@cerithes" },
+                { "label": "🎂", "value": "20" },
+                { "label": "📅", "value": "16-12-2003" },
+                { "label": "🎨", "value": "Red and green" },
+                { "label": "🎮", "value": "TLoZ: Twilight Princess" },
+                { "label": "ABOUT ME", "value": "TLoZ: Twilight Princess" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
