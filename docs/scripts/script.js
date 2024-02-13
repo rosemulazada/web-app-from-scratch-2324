@@ -198,11 +198,7 @@ console.log(zeldaDialogueMasterSword);
 const main = document.getElementsByClassName("master-sword-main")[0];
 console.log("MAIN", main);
 zeldaDialogueMasterSword.addEventListener("click", () => {
-  console.log(
-    masterSwordScene.innerHTML.document.getElementsByClassName(
-      "master-sword-main"
-    )[0]
-  );
+  main.classList.add("zelda--wrap-visible");
 });
 // an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
 //make the DIV element draggable:
