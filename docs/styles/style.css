@@ -40,6 +40,7 @@ main.master-sword-main {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+  transform-style: preserve-3d;
   top: 0;
   left: 0;
   position: relative;
@@ -88,6 +89,7 @@ main.cards-revealed-main > h1:first-of-type {
 #master-sword-container {
   position: absolute;
   width: 100%;
+  transform: skewY(7deg);
   height: 100vh;
   /* top: -60px; */
   left: 0px;
@@ -220,7 +222,6 @@ main.cards-revealed-main > h1:first-of-type {
   transform: rotateY(0deg);
 }
 
-/* Small screens, typically phones with height up to 480px */
 @media (max-height: 480px) {
   #master-sword-container {
     top: -33px;
@@ -229,10 +230,8 @@ main.cards-revealed-main > h1:first-of-type {
   #master-sword > img {
     width: 45px;
   }
-  /* Your styles for small screens here */
 }
 
-/* Medium-sized screens, phones with height between 481px and 768px */
 @media (min-height: 481px) and (max-height: 768px) {
   #master-sword-container {
     top: -52px;
@@ -241,10 +240,8 @@ main.cards-revealed-main > h1:first-of-type {
   #master-sword > img {
     width: 70px;
   }
-  /* Your styles for medium-sized screens here */
 }
 
-/* Large screens, phones with height between 769px and 1024px */
 @media (min-height: 769px) and (max-height: 1024px) {
   #master-sword-container {
     top: -72px;
@@ -253,22 +250,13 @@ main.cards-revealed-main > h1:first-of-type {
   #master-sword > img {
     width: 95px;
   }
-  /* Your styles for large screens here */
-}
 
-/* Extra-large screens, phones with height above 1024px */
-@media (min-height: 1025px) {
-  /* Your styles for extra-large screens here */
+  .zelda--dialog--wrap {
+    width: 300px;
+  }
 }
 
 @media only screen and (min-width: 769px) {
-  .cards-container {
-    max-width: 100%;
-    justify-content: center;
-  }
-  .flip-card:hover {
-    filter: drop-shadow(16px 16px 30px rgba(0, 0, 0, 0.354));
-  }
 }
 
 #urbosa-img-element,
@@ -315,112 +303,12 @@ main.item-popup-main {
   height: 100vh;
 }
 
-main.item-popup-main .zelda--highlight {
+.zelda--highlight {
   color: #3de2c8;
 }
 
-main.item-popup-main .zelda--dialog--wrap {
-  background: #1b1a1a;
-  width: 90vw;
-  height: 150px;
-  border-radius: 10px;
-  position: relative;
-  font-family: "Arial", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    0 100px 80px rgba(0, 0, 0, 0.07);
-}
-
-main.item-popup-main .zelda--dialog--wrap:before,
-main.item-popup-main .zelda--dialog--wrap:after {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  box-shadow: -20px 0 0px -15px #bebebe;
-  content: "";
-  position: absolute;
-  top: 25px;
-}
-
-main.item-popup-main .zelda--dialog--wrap:before {
-  left: 20px;
-}
-
-main.item-popup-main .zelda--dialog--wrap:after {
-  right: 20px;
-  transform: rotate(180deg);
-}
-
-main.item-popup-main .zelda--dialog--inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-main.item-popup-main .zelda--dialog--inner:before,
-main.item-popup-main .zelda--dialog--inner:after {
-  height: 5px;
-  width: 5px;
-  border-radius: 100%;
-  box-shadow: 0px 0px 0px 5px #1b1a1a;
-  background: #bebebe;
-  position: absolute;
-  content: "";
-  top: 72px;
-  z-index: 2;
-}
-
-main.item-popup-main .zelda--dialog--inner:before {
-  left: 16px;
-}
-
-main.item-popup-main .zelda--dialog--inner:after {
-  right: 16px;
-}
-
-/* main.item-popup-main .zelda--name {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  text-shadow: 0px 0px 2px black, 0px 0px 4px black, 0px 0px 6px black;
-  margin-left: 10%;
-  position: absolute;
-  top: -25px;
-} */
-
-main.item-popup-main .zelda--dialog--text {
-  color: white;
-  font-size: 1.2em;
-  font-weight: bold;
-  width: 66.666%;
-  margin: 0;
-}
-
-main.item-popup-main .zelda--triangle {
-  width: 30px;
-  height: 20px;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-  background: #bebebe;
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  animation: float 3.4s infinite;
-}
-
-main.item-popup-main .zelda--triangle:before {
-  content: "";
-  width: 18px;
-  height: 12px;
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-  background: #1b1a1a;
-  position: absolute;
-  right: 6px;
-  top: 3px;
+.zelda--wrap {
+  z-index: 1;
 }
 
 @keyframes float {
@@ -435,5 +323,134 @@ main.item-popup-main .zelda--triangle:before {
   }
   66% {
     transform: translateY(-2.56px);
+  }
+}
+
+main.master-sword-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.zelda--dialog--wrap {
+  background: #1b1a1a;
+  width: 90vw;
+  height: 300px;
+  border-radius: 10px;
+  position: relative;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+.zelda--dialog--wrap:before,
+.zelda--dialog--wrap:after {
+  width: 10rem;
+  height: 100px;
+  border-radius: 100%;
+  box-shadow: -20px 0 0px -15px #bebebe;
+  content: "";
+  position: absolute;
+  /* top: -50%; */
+  /* transform: translateY(-100%); */
+}
+
+.zelda--dialog--wrap:before {
+  left: 20px;
+}
+
+.zelda--dialog--wrap:after {
+  right: 20px;
+  transform: rotate(180deg);
+}
+
+.zelda--dialog--inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zelda--dialog--inner:before,
+.zelda--dialog--inner:after {
+  height: 5px;
+  width: 5px;
+  border-radius: 100%;
+  box-shadow: 0px 0px 0px 5px #1b1a1a;
+  background: #bebebe;
+  position: absolute;
+  content: "";
+  top: 72px;
+  z-index: 2;
+}
+
+.zelda--dialog--inner:before {
+  left: 16px;
+}
+
+.zelda--dialog--inner:after {
+  right: 16px;
+}
+
+.zelda--name {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0px 0px 2px black, 0px 0px 4px black, 0px 0px 6px black;
+  margin-left: 10%;
+  position: absolute;
+  top: -25px;
+}
+
+.zelda--dialog--text {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 66.666%;
+  margin: 0;
+}
+
+.zelda--triangle {
+  width: 30px;
+  height: 20px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: #bebebe;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  animation: float 3.4s infinite;
+}
+
+.zelda--triangle:before {
+  content: "";
+  width: 18px;
+  height: 12px;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  background: #1b1a1a;
+  position: absolute;
+  right: 6px;
+  top: 3px;
+}
+
+
+/*desktop*/
+@media only screen and (min-width: 1024px) {
+  .cards-container {
+    max-width: 100%;
+    justify-content: center;
+  }
+  .flip-card:hover {
+    filter: drop-shadow(16px 16px 30px rgba(0, 0, 0, 0.354));
+  }
+
+  .zelda--dialog--wrap {
+    width: 45vw;
   }
 }

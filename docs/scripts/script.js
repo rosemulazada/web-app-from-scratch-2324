@@ -67,19 +67,19 @@ const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
       <main class="master-sword-main">
-      <!--  <div class="zelda--wrap">
-          <div class="zelda--dialog--wrap">
-            <p class="zelda--name">Rose</p>
-            <div class="zelda--dialog--inner">
-              <p class="zelda--dialog--text">
-                Traveler! Get to know
-                <span class="zelda--highlight">Rose</span> by picking up the
-                <span class="zelda--highlight">Master Sword</span>! Only you can do it..
-              </p>
-            </div>
-            <div class="zelda--triangle"></div>
-          </div>
-        </div> -->
+       <section class="zelda--wrap">
+  <section class="zelda--dialog--wrap">
+    <p class="zelda--name">
+      Rose
+    </p>
+    <section class="zelda--dialog--inner">
+      <p class="zelda--dialog--text">
+        Traveler! Get to know <span class="zelda--highlight">me</span> by picking up the <span class="zelda--highlight">Master Sword</span>! Only you can do it..
+      </p>
+    </section>
+    <section class="zelda--triangle"></section>
+  </section>
+</section>
 
         <section id="master-sword-container">
           <section id="master-sword">
@@ -88,17 +88,19 @@ const DYNAMIC_PAGES = {
         </section>
       </main>
     `,
-    "item-popup": `<main class="item-popup-main"><div class="zelda--wrap">
-  <div class="zelda--dialog--wrap">
+    "item-popup": `<main class="item-popup-main">
+    <section class="zelda--wrap">
+  <section class="zelda--dialog--wrap">
  
-    <div class="zelda--dialog--inner">
+    <section class="zelda--dialog--inner">
       <p class="zelda--dialog--text">
         Traveler! Get to know <span class="zelda--highlight">Rose</span> by picking up the <span class="zelda--highlight">Master Sword</span>! Only you can do it..
       </p>
-    </div>
-    <div class="zelda--triangle"></div>
-  </div>
-</div></main>`,
+    </section>
+    <section class="zelda--triangle"></section>
+  </section>
+</section>
+</main>`,
     "cards-revealed": `
       <main class="cards-revealed-main">
         <h1 aria-label="Heading: View your cards!">View your cards!</h1>
@@ -166,7 +168,7 @@ const itemPopup = new DOMParser().parseFromString(
 ).body.firstChild;
 
 const bodyElement = document.getElementsByTagName("body")[0];
-bodyElement.appendChild(masterSwordScene);
+bodyElement.appendChild(itemPopup);
 
 console.log(masterSwordScene.outerHTML);
 
@@ -411,8 +413,6 @@ itemPopup.addEventListener("click", () => {
   );
   imgElementGuardianStalker.src = `${guardianStalkerImgPath}`;
   imgElementGuardianStalker.alt = `${guardianStalkerAltText}`;
-
-  // flipCard 2: Add other content here if needed
 
   // flipCard 3: Favorite Other TLOZ Things
   const guardianShieldImg = document.createElement("img");

@@ -1,8 +1,9 @@
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
-#The assignment
+# The assignment
 
-##Part 1: The Personal Website
+## Part 1: The Personal Website
+
 My personal site is deployed on Github Pages and can be accessed here:
 https://rosemulazada.github.io/web-app-from-scratch-2324/
 
@@ -45,7 +46,7 @@ All of these points and, if necessary, possible revisions will be listed and add
 
 2. ✅ Music syncing up with the dragging of the sword and the transition to the next 'page' (more on this in point 3).
    - Initially, I had one full audio element, but this became hard to time since I'd need to time it perfectly with a setInterval(). Later on, I ended up splitting this file into two parts: when the first audio stops, the page transitions, and when it does, the next half plays.
-3. ✅ Dynamic page loading (considering this is meant to be a one-pager) ✅
+3. ✅ Dynamic page loading (considering this is meant to be a one-pager)
    - Using an object, I'm dynamically updating the content of the page depending on certain trigger actions instead of using several HTML pages.
 4.
 
