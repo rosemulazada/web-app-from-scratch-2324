@@ -93,9 +93,7 @@ const DYNAMIC_PAGES = {
   <section class="zelda--dialog--wrap">
  
     <section class="zelda--dialog--inner">
-      <p class="zelda--dialog--text">
-        Traveler! Get to know <span class="zelda--highlight">Rose</span> by picking up the <span class="zelda--highlight">Master Sword</span>! Only you can do it..
-      </p>
+      <section><img class="stacked-cards" src="./assets/images/stacked-cards.png" alt="Stacked deck of cards."><section>
     </section>
     <section class="zelda--triangle"></section>
   </section>

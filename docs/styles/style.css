@@ -387,7 +387,6 @@ main.master-sword-main {
   background: #bebebe;
   position: absolute;
   content: "";
-  top: 72px;
   z-index: 2;
 }
 
@@ -439,6 +438,10 @@ main.master-sword-main {
   top: 3px;
 }
 
+.stacked-cards {
+  width: 100px;
+  filter: drop-shadow()
+}
 
 /*desktop*/
 @media only screen and (min-width: 1024px) {
