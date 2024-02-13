@@ -93,7 +93,10 @@ const DYNAMIC_PAGES = {
   <section class="zelda--dialog--wrap">
  
     <section class="zelda--dialog--inner">
-      <section><img class="stacked-cards" src="./assets/images/stacked-cards.png" alt="Stacked deck of cards."><section>
+      <section id="deck-row"><img class="stacked-cards" src="./assets/images/stacked-cards.png" alt="Stacked deck of cards.">
+      <section id="deck-column"><h1>Deck of Cards</h1> <span></span>
+      <p>The Master Sword's spirit revealed to you.. a deck of cards? What could these contain?</p></section>
+      <section>
     </section>
     <section class="zelda--triangle"></section>
   </section>
@@ -166,7 +169,7 @@ const itemPopup = new DOMParser().parseFromString(
 ).body.firstChild;
 
 const bodyElement = document.getElementsByTagName("body")[0];
-bodyElement.appendChild(itemPopup);
+bodyElement.appendChild(masterSwordScene);
 
 console.log(masterSwordScene.outerHTML);
 
@@ -189,6 +192,18 @@ const imageElement = masterSwordScene.querySelector("#master-sword img");
 //   });
 // }
 
+const zeldaDialogueMasterSword =
+  document.getElementsByClassName("zelda--wrap")[0];
+console.log(zeldaDialogueMasterSword);
+const main = document.getElementsByClassName("master-sword-main")[0];
+console.log("MAIN", main);
+zeldaDialogueMasterSword.addEventListener("click", () => {
+  console.log(
+    masterSwordScene.innerHTML.document.getElementsByClassName(
+      "master-sword-main"
+    )[0]
+  );
+});
 // an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
 //make the DIV element draggable:
 draggableElement(document.getElementById("master-sword-container"));
@@ -259,7 +274,7 @@ function draggableElement(draggableElementEvent) {
       }
     }
 
-    if (clientY < 400 && !hasInteracted) {
+    if (clientY < 500 && !hasInteracted) {
       hasInteracted = true;
       bodyElement.classList.add("master-sword-main-transition");
       setTimeout(switchScenes, 8000);

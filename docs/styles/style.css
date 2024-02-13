@@ -46,6 +46,7 @@ main.master-sword-main {
   position: relative;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 main.item-popup-main {
@@ -354,13 +355,11 @@ main.master-sword-main {
 .zelda--dialog--wrap:before,
 .zelda--dialog--wrap:after {
   width: 10rem;
-  height: 100px;
+  height: 140px;
   border-radius: 100%;
   box-shadow: -20px 0 0px -15px #bebebe;
   content: "";
   position: absolute;
-  /* top: -50%; */
-  /* transform: translateY(-100%); */
 }
 
 .zelda--dialog--wrap:before {
@@ -439,8 +438,8 @@ main.master-sword-main {
 }
 
 .stacked-cards {
-  width: 100px;
-  filter: drop-shadow()
+  width: 350px;
+  filter: drop-shadow();
 }
 
 /*desktop*/
@@ -456,4 +455,44 @@ main.master-sword-main {
   .zelda--dialog--wrap {
     width: 45vw;
   }
+}
+
+main.master-sword-main .zelda--wrap .zelda--dialog--wrap {
+  height: 175px;
+  border-radius: 100px;
+}
+
+main.master-sword-main .zelda--wrap .zelda--dialog--wrap:before,
+main.master-sword-main .zelda--wrap .zelda--dialog--wrap:after {
+  width: 100px;
+  height: 100px;
+}
+
+#deck-row {
+  color: white;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  padding: 2rem 4rem;
+  gap: 2rem;
+}
+
+#deck-column h1 {
+  font-size: 2rem;
+}
+
+#deck-column p {
+  font-size: 1rem;
+}
+
+#deck-column span {
+  display: block;
+  margin: 0.5rem 0;
+  width: 300px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.154);
+}
+
+.zelda--wrap-visible .zelda--wrap {
+  display: none;
 }
