@@ -66,7 +66,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
-      <main class="master-sword-main">
+      <main class="master-sword-main black">
+      
        <section class="zelda--wrap">
   <section class="zelda--dialog--wrap">
     <p class="zelda--name">
@@ -86,6 +87,8 @@ const DYNAMIC_PAGES = {
             <img src="./assets/images/sharp-mastersword.png" alt="Master Sword"/>
           </section>
         </section>
+<section class="black"></section>
+
       </main>
     `,
     "item-popup": `<main class="item-popup-main">
@@ -198,7 +201,7 @@ console.log(zeldaDialogueMasterSword);
 const main = document.getElementsByClassName("master-sword-main")[0];
 console.log("MAIN", main);
 zeldaDialogueMasterSword.addEventListener("click", () => {
-  main.classList.add("zelda--wrap-visible");
+  main.classList.add("zelda--wrap-invisible");
 });
 // an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
 //make the DIV element draggable:

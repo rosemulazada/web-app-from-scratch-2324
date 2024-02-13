@@ -250,6 +250,7 @@ main.cards-revealed-main > h1:first-of-type {
 
   #master-sword > img {
     width: 95px;
+    z-index: -1;
   }
 
   .zelda--dialog--wrap {
@@ -493,6 +494,15 @@ main.master-sword-main .zelda--wrap .zelda--dialog--wrap:after {
   background: rgba(255, 255, 255, 0.154);
 }
 
-.zelda--wrap-visible .zelda--wrap {
+
+
+.zelda--wrap-invisible .zelda--wrap {
   display: none;
+}
+
+.black {
+  height: 100vh;
+  position: absolute;
+  background: black;
+  z-index: 2;
 }
