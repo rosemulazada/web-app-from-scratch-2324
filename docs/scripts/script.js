@@ -1,110 +1,113 @@
-// a link to the API i'm using: the Hyrule Compendium API
+/**============================================
+ *              THE API I USED
+ *=============================================**/
 // https://gadhagod.github.io/Hyrule-Compendium-API/#/
 
-// **********************************
-// VARIABLES & API/JSON FILE CALLS //
-// *********************************
+/**============================================
+ *       VARIABLES & API/JSON FILE CALLS
+ *=============================================**/
+
 let dataStorage = {};
 let flipCard = document.getElementsByClassName("flip-card__back-side");
+const bodyElement = document.getElementsByTagName("body")[0];
 let hasInteracted = false;
 let guardianShieldImgPath;
 let p;
 let imgElementUrbosa;
 let guardianData;
 
-// get the information from this compendium about the guardian stalker entity
+/**======================
+ *    Guardian DATA
+ *========================**/
 async function getGuardianInformation() {
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_stalker`
   );
-  // store data in let guardianData
   guardianData = await response.json();
-  // log it so i can easily see what i need to access later on.
+  // I log the data here so I can easily see the structure.
   console.log("GUARDIAN DATA:", guardianData);
 }
 
-// get information about the item guardian shield
+/**======================
+ *  Guardian Shield DATA
+ *========================**/
 async function getGuardianShield() {
   const response = await fetch(
     `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/guardian_shield`
   );
-  // store data in variable guardianShieldData
   let guardianShieldData = await response.json();
-  // log to view data structure
   console.log("GUARDIAN SHIELD DATA:", guardianShieldData);
-  // for ease of adding a .src to an image element i will create later, i store it here since it's only one image.
+  // For ease of adding a .src to an image element I will create later, I store its path here, since it's only one image.
   guardianShieldImgPath = guardianShieldData.data.image;
+  guardianShieldImgAlt = guardianShieldData.data.name;
 }
 
-// get personal json file from repo
+/**======================
+ *     Get JSON Data
+ *========================**/
 async function getPersonalData() {
   const response = await fetch("./assets/data-json/personal-data.json");
-  // store in let personalData
   personalData = await response.json();
-  // log BIO to see ahead of time before i even access the page i need it for whether or not it is found.
+  // Log BIO to see ahead of time before I even access the page I need the data for whether or not it was succesfully retrieved.
   console.log("MY BIO", personalData.favcharactersbio);
 
-  // here, i create a p element and store the necessary data from the json ahead of time, just for ease so i know where to find it should i need to make changes.
+  // Here, I create a p element and store the necessary data from the json ahead of time, just for ease so i know where to find it should i need to make changes.
   p = document.createElement("p");
-  // i use innerHTML here specifically over textContent because the text being appended contains HTML elements that were initially being loaded as strings.
+  // I use innerHTML here specifically over textContent because the text being appended contains HTML elements that were initially being loaded as strings.
+  // I do not need to manipulate the HTML in the strings more than this, so innerHTML is appropriate rather than DOMParser().
   p.innerHTML = `${personalData.favcharactersbio}`;
-  console.log("paragraph", p);
 }
-// since getGuardianShield and getGuardianInformation are not local files like getPersonalData, i await the promise before any actions are undertaken.
-// i do this because, when you would go through the page too fast (fast meaning before the api can retrieve its necessary data, which realistically
-// would never happen because it takes 8 seconds) before you can even go to the second page which you still have to go through before you go to the third),
-// it still bothered me while editing.
-// now, the any images i retrieve from the API will not be appended until the data is ready and the promise is fulfilled.
+
+// getGuardianShield and getGuardianInformation are not local files, but from an API, so I await the promise before anything else.
+// This avoids the occurence where an image from an API is 'appended' before it is retrieved, leaving you with.. nothing.
 document.addEventListener("DOMContentLoaded", async () => {
   await Promise.all([getGuardianShield(), getGuardianInformation()]);
   await getPersonalData();
 });
 
-// this variable contains all of my dynamic page data for this project, save from of course the API.
-// i store the html of the desired pages in an Object, since this is meant to be a one pager.
-// this prevents the need of multiple HTML pages.
+// Loading the HTML dynamically avoids the needs for several HTML files, and makes this, technically, still a one-pager.
 const DYNAMIC_PAGES = {
   Pages: {
     "master-sword": `
       <main class="master-sword-main black">
-      
-       <section class="zelda--wrap">
-  <section class="zelda--dialog--wrap">
-    <p class="zelda--name">
-      Rose
-    </p>
-    <section class="zelda--dialog--inner">
-      <p class="zelda--dialog--text">
-        Traveler! Get to know <span class="zelda--highlight">me</span> by picking up the <span class="zelda--highlight">Master Sword</span>! Only you can do it..
-      </p>
-    </section>
-    <section class="zelda--triangle"></section>
-  </section>
-</section>
-
+        <section class="zelda--wrap">
+          <section class="zelda--dialog--wrap">
+            <p class="zelda--name">
+              Rose
+            </p>
+            <section class="zelda--dialog--inner">
+              <p class="zelda--dialog--text">
+                Traveler! Get to know <span class="zelda--highlight">me</span> by picking up the <span class="zelda--highlight">Master Sword</span>! Only you can do it..
+              </p>
+            </section>
+            <section class="zelda--triangle"></section>
+          </section>
+        </section>
         <section id="master-sword-container">
           <section id="master-sword">
             <img src="./assets/images/sharp-mastersword.png" alt="Master Sword"/>
           </section>
         </section>
-<section class="black"></section>
-
+        <section class="black"></section>
       </main>
     `,
     "item-popup": `<main class="item-popup-main">
-    <section class="zelda--wrap">
-  <section class="zelda--dialog--wrap">
- 
-    <section class="zelda--dialog--inner">
-      <section id="deck-row"><img class="stacked-cards" src="./assets/images/stacked-cards.png" alt="Stacked deck of cards.">
-      <section id="deck-column"><h1>Deck of Cards</h1> <span></span>
-      <p>The Master Sword's spirit revealed to you.. a deck of cards? What could these contain?</p></section>
-      <section>
-    </section>
-    <section class="zelda--triangle"></section>
-  </section>
-</section>
-</main>`,
+      <section class="zelda--wrap">
+        <section class="zelda--dialog--wrap">
+          <section class="zelda--dialog--inner">
+            <section id="deck-row">
+              <img class="stacked-cards" src="./assets/images/stacked-cards.png" alt="Stacked deck of cards.">
+            </section>
+            <section id="deck-column">
+              <h1>Deck of Cards</h1>
+              <span></span>
+              <p>The Master Sword's spirit revealed to you.. a deck of cards? What could these contain?</p>
+            </section>
+          </section>
+          <section class="zelda--triangle"></section>
+        </section>
+      </section>
+    </main>`,
     "cards-revealed": `
       <main class="cards-revealed-main">
         <h1 aria-label="Heading: View your cards!">View your cards!</h1>
@@ -133,29 +136,9 @@ const DYNAMIC_PAGES = {
   },
 };
 
-// function switchScenes() {
-//   bodyElement.replaceChild(itemPopup, masterSwordScene);
-//   bodyElement.classList.remove("master-sword-main-transition");
-//   function play() {
-//     let audio = new Audio("./assets/audio/reveal-audio.mp3");
-//     audio.play();
-//   }
-//   play();
-// }
-
-// function checkHasInteracted() {
-//   if (hasInteracted === true) {
-//     function play() {
-//       let audio = new Audio("./assets/audio/buildup-audio.mp3");
-//       audio.play();
-//     }
-//     console.log("hasInteracted is true");
-//     play();
-//   } else {
-//     console.log("hasInteracted is false");
-//   }
-// }
-
+/**============================================
+ *         SAVE HTML PAGES IN VARIABLES
+ *=============================================**/
 const masterSwordScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["master-sword"],
   "text/html"
@@ -171,62 +154,37 @@ const itemPopup = new DOMParser().parseFromString(
   "text/html"
 ).body.firstChild;
 
-const bodyElement = document.getElementsByTagName("body")[0];
+// This is the first page and should be visible immediately, so I append it here. I feel safe doing it outside of any function because it is meant to be first under all circumstances.
 bodyElement.appendChild(masterSwordScene);
-
-console.log(masterSwordScene.outerHTML);
-
-// hasInteracted = true;
-console.log(hasInteracted);
-
-const imageElement = masterSwordScene.querySelector("#master-sword img");
-
-// // Now you can access the image element
-// console.log(imageElement);
-
-// if (hasInteracted) {
-//   imageElement.addEventListener("click", () => {
-//     // Adding a class for animation
-//     imageElement.classList.add("master-sword-animation");
-//     console.log("clicked");
-//     bodyElement.classList.add("master-sword-main-transition");
-//     setTimeout(switchScenes, 8000);
-//     checkHasInteracted();
-//   });
-// }
 
 const zeldaDialogueMasterSword =
   document.getElementsByClassName("zelda--wrap")[0];
 console.log(zeldaDialogueMasterSword);
-const main = document.getElementsByClassName("master-sword-main")[0];
-console.log("MAIN", main);
+const mainMasterSword = document.getElementsByClassName("master-sword-main")[0];
 zeldaDialogueMasterSword.addEventListener("click", () => {
-  main.classList.add("zelda--wrap-invisible");
+  mainMasterSword.classList.add("zelda--wrap-invisible");
 });
-// an iteration was made on the code, but the original can be found here. https://www.w3schools.com/howto/howto_js_draggable.asp
-//make the DIV element draggable:
+
+/**============================================
+ *               DRAGGING
+ *=============================================**/
 draggableElement(document.getElementById("master-sword-container"));
 
 function draggableElement(draggableElementEvent) {
   var pos1 = 0;
   var pos2 = 0;
-  var pos3 = 0;
   var pos4 = 0;
 
   if (document.getElementById("master-sword")) {
     draggableElementEvent.addEventListener("mousedown", dragMouseDown);
-    // draggableElementEvent.addEventListener("click", dragMouseDown);
     draggableElementEvent.addEventListener("touchstart", dragMouseDown);
-    // Add keyboard event listeners
     document.addEventListener("keydown", handleKeyDown);
   }
 
   function dragMouseDown(e) {
     e.preventDefault();
-    // var clientX = e.clientX || e.touches[0].clientX;
     var clientY = e.clientY || e.touches[0].clientY;
 
-    // pos3 = clientX;
     pos4 = clientY;
 
     document.addEventListener("mouseup", closeDragElement);
@@ -235,43 +193,45 @@ function draggableElement(draggableElementEvent) {
     document.addEventListener("touchmove", elementDrag);
   }
 
+  /**============================================
+   *         SWITCH SCENES & PLAY BUILDUP
+   *=============================================**/
+  function switchScenes() {
+    bodyElement.replaceChild(itemPopup, masterSwordScene);
+    bodyElement.classList.remove("master-sword-main-transition");
+    function play() {
+      let audio = new Audio("./assets/audio/reveal-audio.mp3");
+      audio.play();
+    }
+    play();
+  }
+
+  /**============================================
+   *       CHECK IF = TRUE & PLAY REVEAL
+   *=============================================**/
+  function checkHasInteracted() {
+    if (hasInteracted === true) {
+      function play() {
+        let audio = new Audio("./assets/audio/buildup-audio.mp3");
+        audio.play();
+      }
+      console.log("hasInteracted is true");
+      play();
+    } else {
+      console.log("hasInteracted is false");
+    }
+  }
+
   function elementDrag(e) {
-    // var clientX = e.clientX || e.touches[0].clientX;
     var clientY = e.clientY || e.touches[0].clientY;
 
-    // pos1 = pos3 - clientX;
     pos2 = pos4 - clientY;
-    // pos3 = clientX;
     pos4 = clientY;
 
     draggableElementEvent.style.top =
       draggableElementEvent.offsetTop - pos2 + "px";
     draggableElementEvent.style.left =
       draggableElementEvent.offsetLeft - pos1 + "px";
-
-    // let bodyElement = document.getElementsByTagName("body")[0];
-    function switchScenes() {
-      bodyElement.replaceChild(itemPopup, masterSwordScene);
-      bodyElement.classList.remove("master-sword-main-transition");
-      function play() {
-        let audio = new Audio("./assets/audio/reveal-audio.mp3");
-        audio.play();
-      }
-      play();
-    }
-
-    function checkHasInteracted() {
-      if (hasInteracted === true) {
-        function play() {
-          let audio = new Audio("./assets/audio/buildup-audio.mp3");
-          audio.play();
-        }
-        console.log("hasInteracted is true");
-        play();
-      } else {
-        console.log("hasInteracted is false");
-      }
-    }
 
     if (clientY < 500 && !hasInteracted) {
       hasInteracted = true;
@@ -293,29 +253,6 @@ function draggableElement(draggableElementEvent) {
     draggableElementEvent.style.left =
       draggableElementEvent.offsetLeft - pos1 + "px";
 
-    function checkHasInteracted() {
-      if (hasInteracted === true) {
-        function play() {
-          let audio = new Audio("./assets/audio/buildup-audio.mp3");
-          audio.play();
-        }
-        console.log("hasInteracted is true");
-        play();
-      } else {
-        console.log("hasInteracted is false");
-      }
-    }
-
-    function switchScenes() {
-      bodyElement.replaceChild(itemPopup, masterSwordScene);
-      bodyElement.classList.remove("master-sword-main-transition");
-      function play() {
-        let audio = new Audio("./assets/audio/reveal-audio.mp3");
-        audio.play();
-      }
-      play();
-    }
-
     if (pos2 > 20 && !hasInteracted) {
       hasInteracted = true;
       bodyElement.classList.add("master-sword-main-transition");
@@ -330,35 +267,38 @@ function draggableElement(draggableElementEvent) {
     document.removeEventListener("touchend", closeDragElement);
     document.removeEventListener("mousemove", elementDrag);
     document.removeEventListener("touchmove", elementDrag);
-    // Remove keyboard event listener
     document.removeEventListener("keydown", handleKeyDown);
   }
 }
 
 itemPopup.addEventListener("click", () => {
-  // replaces the html for the item popup scene for the cards scene
   bodyElement.replaceChild(cardsRevealedScene, itemPopup);
 
-  // will later be used to make sure some specific data is properly capitalised, as it isn't done so directly from the api.
+  // Will later be used to make sure some specific data is properly capitalised, as it isn't done so directly from the API.
   function capitalizeEachWord(string) {
     return string.replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
-  // **************************
-  // flipCard 0: About me! //
-  // *************************
+  /**======================
+   *    ABOUT ME: CARD 0
+   *========================**/
+  // My name
   const developerName = document.createElement("h1");
-  const flipCardTwoHeading = document.createElement("h2");
+  // The 'about me' heading
+  const aboutMeHeading = document.createElement("h2");
 
   developerName.textContent = `${personalData.name}`;
-  flipCardTwoHeading.textContent = `${personalData.flipCardTwoHeading}`;
+  aboutMeHeading.textContent = `${personalData.flipCardTwoHeading}`;
 
-  flipCard[1].appendChild(flipCardTwoHeading);
+  flipCard[1].appendChild(aboutMeHeading);
   flipCard[0].appendChild(developerName);
+  // append the 'p' from earlier: this is the bio we selected in the getPersonalData function
   flipCard[1].appendChild(p);
 
+  // Gather the array of object with introduction information about me in this variable
   const personalDataIntroduction = personalData.introduction;
 
+  // Appends all the labels and values in the introduction object array as divs with nested respective h3's and p's to the first card only.
   for (let i = 0; i < personalDataIntroduction.length; i++) {
     const wrapperDiv = document.createElement("div");
 
@@ -372,15 +312,17 @@ itemPopup.addEventListener("click", () => {
     wrapperDiv.appendChild(developerValue);
     flipCard[0].appendChild(wrapperDiv);
 
+    // Dynamically set aria label so it can be read properly, it was previously read as 'ABOUT M-E'.
+    // Has to be done this way since the element was created in JavaScript.
     if (i === personalDataIntroduction.length - 1) {
       developerLabel.setAttribute("aria-label", "about me");
     }
   }
 
-  // ********************************************
-  // flipCard 1: Favorite Characters from TLOZ //
-  // *******************************************
-  // CHARACTER NAMES
+  /**======================
+   *    FAV CHARS: CARD 2
+   *========================**/
+  // Character names
   const urbosaCharacter = personalData.characternames.find((character) => {
     return character.hasOwnProperty("urbosa");
   }).urbosa;
@@ -401,8 +343,8 @@ itemPopup.addEventListener("click", () => {
   miphaSpan.innerHTML = miphaCharacter;
   guardianStalkersSpan.innerHTML = `${guardianStalkerCharacter}s, (said no one ever..)`;
 
-  //images
-  // retrieve path.
+  // Images
+  // Retrieve path
   const urbosaImgPath = personalData.images.find((img) =>
     img.hasOwnProperty("urbosa")
   ).urbosa;
@@ -412,7 +354,7 @@ itemPopup.addEventListener("click", () => {
   ).mipha;
   const guardianStalkerImgPath = guardianData.data.image;
 
-  // retrieve alt text.
+  // Retrieve alt text
   const urbosaAltText = personalData.alttext.find((alt) =>
     alt.hasOwnProperty("urbosa")
   ).urbosa;
@@ -421,23 +363,37 @@ itemPopup.addEventListener("click", () => {
   ).mipha;
   const guardianStalkerAltText = `A Guardian Stalker from Breath of The Wild.`;
 
+  // Set all
   imgElementUrbosa = document.getElementById("urbosa-img-element");
   imgElementUrbosa.src = `${urbosaImgPath}`;
   imgElementUrbosa.alt = `${urbosaAltText}`;
 
+  // Append all
   imgElementMipha = document.getElementById("mipha-img-element");
   imgElementMipha.src = `${miphaImgPath}`;
   imgElementMipha.alt = `${miphaAltText}`;
 
-  // declare img element.
+  // Guardian Stalker: select img element in HTML
   imgElementGuardianStalker = document.getElementById(
     "guardianstalker-img-element"
   );
+  // Set values with data variable gathered from getGuardianInformation()
   imgElementGuardianStalker.src = `${guardianStalkerImgPath}`;
   imgElementGuardianStalker.alt = `${guardianStalkerAltText}`;
 
   // flipCard 3: Favorite Other TLOZ Things
+  const favWeaponHeading = document.createElement("h2");
+  favWeaponHeading.textContent = `Most used weapon`;
+  flipCard[2].appendChild(favWeaponHeading);
+
+  const weaponParagraph = document.createElement("p");
+  weaponParagraph.textContent = `Well.. I did say that I like fighting ${guardianData.data.name}s most, so, this shoould not be a surprise.`;
+  flipCard[2].appendChild(weaponParagraph);
+
   const guardianShieldImg = document.createElement("img");
   guardianShieldImg.src = `${guardianShieldImgPath}`;
+  guardianShieldImg.alt = `${guardianShieldImgAlt}`;
+  guardianShieldImg.style.width = "150px";
+  guardianShieldImg.style.margin = "1rem 0 0 0";
   flipCard[2].appendChild(guardianShieldImg);
 });

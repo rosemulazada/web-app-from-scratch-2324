@@ -1,5 +1,3 @@
-<!-- Add a link to your live demo in Github Pages 🌐-->
-
 # The assignment
 
 ## Part 1: The Personal Website
@@ -9,13 +7,13 @@ https://rosemulazada.github.io/web-app-from-scratch-2324/
 
 Here I will be discussing the how's and what's of the project. For detailed information about the actual process, please see my Wiki at the top of this page.
 
-<!-- ☝️ replace this description with a description of your own work -->
-
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage and Features](#usage-and-features)
+- [Reflection](#Reflection)
+- [Version log](#version-log)
 - [External Data Sources](#external-data-sources)
 
 ## Introduction
@@ -49,6 +47,92 @@ It's features are as follows:
 - Dynamic page loading
 - **Dynamic HTML content (images/text) (API and JSON FILE)**
 
+## Reflection
+
+Of course, no project is without its ups and downs. So here, I have a checklist or wishlist of sorts, sorted into three categories:
+
+### Things I wanted to achieve, and did!
+
+- The dragging effect of the sword
+- Wrote useful loops instead of doing things one-by-one
+- Made the site fully accessible
+- The audio effect really seals the deal and is synced nicely!
+- Sought things out myself as much as I possibly could, or asked teammates if they knew of a way to achieve what I was struggling with, before consulting anything else
+- Dynamic page loading
+- Dynamic HTML content (images/text) (API and JSON file)
+
+### Things I managed, but would have loved to do better
+
+- Smoother between the pages (exclude the first page transition to the second)
+- Made as little unnecessary new functions as possible (as in, if it can happen inside another function, do it there instead of making a separate one)
+- Grouped functions and such together 'neatly'
+
+### Things I couldn't do or had to omit
+
+- More advanced animations
+- A (fleshed out) third card
+- Make a more convincing sword (it's cut in half currently hah)
+- A black overlay behind the dialogue text that fades out when you click the dialogue box away
+- Dialogue sound effects like in TLoZ games
+- The slightly off-center triangle in the dialogue boxes.. if you hadn't noticed it before, you will now. Sorry.
+
+That's just about the project itself though; there are other things not directly related to it that I find worthy of being reflected on. I'm beginning to build up my confidence as a developer, and I recognise that there is A) a lot to learn that has been out for long and B) forever and always something that will be the next hot thing to learn. But I have to say that I have the idea that I've expanded my knowledge so much in the span of this mini-project, and I could do so while creating something that I truly enjoy! So it was a win-win for me on all fronts.. and ends, badum tss.
+
+But really. From Git to Github and Vercel and Pull Requests and whatnot, this little project allowed me the space to experiment with what I really wanted to learn, and I feel as though I am really setting my foot into the Front End Developer world, and it's nice to finally be able to speak to like-minded people, and like-minded people who I don't have to dumb down my code to, at that. So I'm excited to see what follows!
+
+## Version log
+
+### WAFS V1: Feb. 5th, '24
+
+I committed my stylesheet. Seemingly, I couldn't remember to commit any more than that, that day.
+
+### WAFS V2: Feb. 6th, '24
+
+More than just a stylesheet, this time!
+
+- A horizontally scrollable list of cards that could be flipped. (These cards could not be read with a screenreader yet, however).
+- Immediately made responsive!
+
+### WAFS V3: Feb. 8th, '24
+
+- Dynamic page loading functional, proper triggers are in place
+- API connected and loads images into cards.
+
+### WAFS V4: Feb. 9th, '24
+
+- Created an array that gathers all the entries from the API into an array.
+- Wrote a for loop that loops over the four (at the time) cards I had, and appended the same image from the API to each one.
+
+### WAFS V5: Feb. 10th, '24
+
+- Able to log JSON data
+- Edited the for loop to append a different entry image and name from the API to the four cards.
+
+### WAFS V6: Feb. 11th, '24
+
+- Removed said loop, change of plans in the concept.
+- Updated README.md
+
+### WAFS V7: Feb. 12th, '24
+
+- Accidentally edited README.md remotely. Had to execute a `git push -f main` to overwrite this.
+- In the meantime, while I had appended all my personal data to the cards dynamically, and combined this with the API where necessary to load in Champion names and Monster names/images.
+- API did not have Champion images, unfortunately, so these are sourced from my personal JSON file.
+- Added main styling to the cards section of the document (the styling you see today).
+- Added favicon.
+- Experimented with a version of the site where the sword would move on click, but this was removed.
+- Added aria-labels and tab-indexes to cards so a screenreader can read and navigate it as intended.
+- Master Sword can be controlled with the arrow up key for people using a screenreader or otherwise navigating using the keyboard.
+
+### WAFS V8: Feb. 13th, '24
+
+- Added dialog boxes to first- and second pages.
+- Made dialog box on first page disappear on click
+
+### WAFS V9: Feb. 14th, '24
+
+- Cleaned up the code
+
 ## External data sources
 
 1. [The flip cards CSS tutorial I used](https://www.youtube.com/watch?v=OenXGHmL48U&list=PL6UM04F9igDbjpbkKYuFnUvn6eNGOJlHT&index=13)
@@ -69,13 +153,4 @@ It's features are as follows:
 16. [The Master Sword itself](https://preview.redd.it/c1dnsj3xn9e41.jpg?width=1080&crop=smart&auto=webp&s=c798ef8ef1a9b08f687fbfceb03bca5a39294319)
 17. [Photo of Mipha from BOTW](https://zeldawiki.wiki/wiki/File:BotW_Mipha_Artwork.png)
 18. [Photo of Urbosa from BOTW](https://zeldawiki.wiki/wiki/File:BotW_Urbosa_Artwork.png)
-
-<!-- replace the code in the /docs folder with your own, so you can showcase your work with GitHub Pages 🌍 -->
-
-<!-- Add a nice poster image here at the end of the week, showing off your shiny frontend 📸 -->
-
-<!-- Maybe a table of contents here? 📚 -->
-
-<!-- How about a section that describes how to install this project? 🤓 -->
-
-<!-- ...but how does one use this project? What are its features 🤔 -->
+19. [Word boundaries for selecting the first letter of each word in a string](https://stackoverflow.com/questions/8279859/get-first-letter-of-each-word-in-a-string-in-javascript)
