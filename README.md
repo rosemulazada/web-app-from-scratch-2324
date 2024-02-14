@@ -7,6 +7,8 @@
 My personal site is deployed on Github Pages and can be accessed here:
 https://rosemulazada.github.io/web-app-from-scratch-2324/
 
+Here I will be discussing the how's and what's of the project. For detailed information about the actual process, please see my Wiki at the top of this page.
+
 <!-- ☝️ replace this description with a description of your own work -->
 
 ## Table of Contents
@@ -15,7 +17,6 @@ https://rosemulazada.github.io/web-app-from-scratch-2324/
 - [Installation](#installation)
 - [Usage and Features](#usage-and-features)
 - [Checklist / Wishlist](#checklist--wishlist)
-- [Process](#process)
 - [External Data Sources](#external-data-sources)
 
 ## Introduction
@@ -51,68 +52,6 @@ All of these points and, if necessary, possible revisions will be listed and add
 4.
 
 ?. ✅ Pop-up for the 'received items'
-
-## Process
-
-I wasn't sure where to start, I had a lot of things in mind, but I decided to break it down into bite-sized pieces. First things first, the sword. I knew dragging to be a chore to get to work properly (as later came to bite me as well), so I thought it might be wise to start with this.
-
-3. Dynamic page loading:
-
-```javascript
-const DYNAMIC_PAGES = {
-  Pages: {
-    "master-sword": `
-      <main class="master-sword-main">
-        <div class="zelda--wrap">
-          <div class="zelda--dialog--wrap">
-            <p class="zelda--name">Rose</p>
-            <div class="zelda--dialog--inner">
-              <p class="zelda--dialog--text">
-                Traveler! Get to know
-                <span class="zelda--highlight">Rose</span> by picking up the
-                <span class="zelda--highlight">Master Sword</span>! Only you can do it..
-              </p>
-            </div>
-            <div class="zelda--triangle"></div>
-          </div>
-        </div>
-
-        <section id="master-sword-container">
-          <section id="master-sword">
-            <img src="./assets/images/sharp-mastersword.png" />
-          </section>
-        </section>
-      </main>
-    `,
-    "item-popup": `<main class="item-popup-main"></main>`,
-    "cards-revealed": `
-      <main class="cards-revealed-main">
-        <h1>View your cards!</h1>
-        <section class="cards-container" role="list" aria-label="Skills List">
-          <section class="flip-card box" tabindex="0" aria-label="Flip Card">
-            <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
-            </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
-          </section>
-          <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
-            <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
-            </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
-          </section>
-          <section class="flip-card box" role="group" tabindex="0" aria-label="Flip Card">
-            <section class="flip-card__front-side" aria-hidden="true">
-              <img class="hyrule-crest" src="./assets/images/hyrule-crest-unedited-removebg-preview.png" alt="Hyrule Crest">
-            </section>
-            <section class="flip-card__back-side" aria-hidden="true"></section>
-          </section>
-        </section>
-      </main>
-    `,
-  },
-};
-```
 
 ## External data sources
 

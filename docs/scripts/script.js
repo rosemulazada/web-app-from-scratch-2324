@@ -133,33 +133,33 @@ const DYNAMIC_PAGES = {
   },
 };
 
-function switchScenes() {
-  bodyElement.replaceChild(itemPopup, masterSwordScene);
-  bodyElement.classList.remove("master-sword-main-transition");
-  function play() {
-    let audio = new Audio("./assets/audio/reveal-audio.mp3");
-    audio.play();
-  }
-  play();
-}
+// function switchScenes() {
+//   bodyElement.replaceChild(itemPopup, masterSwordScene);
+//   bodyElement.classList.remove("master-sword-main-transition");
+//   function play() {
+//     let audio = new Audio("./assets/audio/reveal-audio.mp3");
+//     audio.play();
+//   }
+//   play();
+// }
 
-function checkHasInteracted() {
-  if (hasInteracted === true) {
-    function play() {
-      let audio = new Audio("./assets/audio/buildup-audio.mp3");
-      audio.play();
-    }
-    console.log("hasInteracted is true");
-    play();
-  } else {
-    console.log("hasInteracted is false");
-  }
-}
+// function checkHasInteracted() {
+//   if (hasInteracted === true) {
+//     function play() {
+//       let audio = new Audio("./assets/audio/buildup-audio.mp3");
+//       audio.play();
+//     }
+//     console.log("hasInteracted is true");
+//     play();
+//   } else {
+//     console.log("hasInteracted is false");
+//   }
+// }
 
 const masterSwordScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["master-sword"],
   "text/html"
-).body.firstChild;
+).body;
 
 const cardsRevealedScene = new DOMParser().parseFromString(
   DYNAMIC_PAGES.Pages["cards-revealed"],
@@ -304,6 +304,16 @@ function draggableElement(draggableElementEvent) {
       } else {
         console.log("hasInteracted is false");
       }
+    }
+
+    function switchScenes() {
+      bodyElement.replaceChild(itemPopup, masterSwordScene);
+      bodyElement.classList.remove("master-sword-main-transition");
+      function play() {
+        let audio = new Audio("./assets/audio/reveal-audio.mp3");
+        audio.play();
+      }
+      play();
     }
 
     if (pos2 > 20 && !hasInteracted) {
