@@ -473,6 +473,7 @@ main.master-sword-main .zelda--wrap .zelda--dialog--wrap:after {
 #deck-column {
   color: white;
   width: clamp(100px, 200px, 300px);
+  padding-right: 2rem;
 }
 
 #deck-column span {

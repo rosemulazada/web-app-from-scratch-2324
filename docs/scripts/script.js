@@ -101,7 +101,7 @@ const DYNAMIC_PAGES = {
             <section id="deck-column">
               <h1>Deck of Cards</h1>
               <span></span>
-              <p>The Master Sword's spirit revealed to you.. a deck of cards? What could these contain?</p>
+              <p>The Master Sword's spirit revealed to you.. deck of cards? What could these contain?</p>
             </section>
           </section>
           <section class="zelda--triangle"></section>
@@ -393,7 +393,7 @@ itemPopup.addEventListener("click", () => {
   const guardianShieldImg = document.createElement("img");
   guardianShieldImg.src = `${guardianShieldImgPath}`;
   guardianShieldImg.alt = `${guardianShieldImgAlt}`;
-  guardianShieldImg.style.width = "150px";
-  guardianShieldImg.style.margin = "1rem 0 0 0";
+  guardianShieldImg.style.width = "200px";
+  guardianShieldImg.style.margin = "1rem auto";
   flipCard[2].appendChild(guardianShieldImg);
 });
