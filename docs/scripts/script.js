@@ -387,7 +387,7 @@ itemPopup.addEventListener("click", () => {
   flipCard[2].appendChild(favWeaponHeading);
 
   const weaponParagraph = document.createElement("p");
-  weaponParagraph.textContent = `Well.. I did say that I like fighting ${guardianData.data.name}s most, so, this shoould not be a surprise.`;
+  weaponParagraph.textContent = `Well.. I did say that I like fighting ${guardianData.data.name}s most, so, this should not be a surprise.`;
   flipCard[2].appendChild(weaponParagraph);
 
   const guardianShieldImg = document.createElement("img");
