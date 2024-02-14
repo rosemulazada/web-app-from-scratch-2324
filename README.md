@@ -16,7 +16,6 @@ Here I will be discussing the how's and what's of the project. For detailed info
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage and Features](#usage-and-features)
-- [Checklist / Wishlist](#checklist--wishlist)
 - [External Data Sources](#external-data-sources)
 
 ## Introduction
@@ -35,29 +34,41 @@ Here are the steps to install my project.
 
 ## Usage and features
 
-This is how you can use my project.
+This project is mainly meant as an experiment of sorts; we pull data from our JSON file and an API, then, in turn, we pull that data from each of the members to our team app, and the teachers then pull all our team app data to one application for the entire class. Pretty cool.
 
-## Checklist / Wishlist
+This personal site had to be all about us; so, essentially, you can use it to get to know me a little..! Or as a base for a fun, interactive code. That also works.
 
-All of these points and, if necessary, possible revisions will be listed and addressed in detail in the next section: [Process](#process).
+The 'star of the show' in that regard would certainly be the last page, in my own opinion, where you have to turn the cards to reveal dynamic data.
 
-1 .✅ Draggable master sword
+It's features are as follows:
 
-- Possible revision here for accessibility reasons: dragging is difficult on a keyboard.. View reference for this piece of code in the [External Data Sources](#external-data-sources) section.
-
-2. ✅ Music syncing up with the dragging of the sword and the transition to the next 'page' (more on this in point 3).
-   - Initially, I had one full audio element, but this became hard to time since I'd need to time it perfectly with a setInterval(). Later on, I ended up splitting this file into two parts: when the first audio stops, the page transitions, and when it does, the next half plays.
-3. ✅ Dynamic page loading (considering this is meant to be a one-pager)
-   - Using an object, I'm dynamically updating the content of the page depending on certain trigger actions instead of using several HTML pages.
-4.
-
-?. ✅ Pop-up for the 'received items'
+- Drag feature
+- CSS Transitions
+- Popup dialogue boxes
+- Cards that you can actually turn
+- Dynamic page loading
+- **Dynamic HTML content (images/text) (API and JSON FILE)**
 
 ## External data sources
 
-1. Draggable HTML Element: W3Schools https://www.w3schools.com/howto/howto_js_draggable.asp
-2. Cards background https://www.deviantart.com/sunnytp/art/Sheikah-system-wallpaper-1920-1080-764159748
-3. Zelda Dialogue Box: https://codepen.io/mHansen/pen/xxZwLVY
+1. [The flip cards CSS tutorial I used](https://www.youtube.com/watch?v=OenXGHmL48U&list=PL6UM04F9igDbjpbkKYuFnUvn6eNGOJlHT&index=13)
+2. [W3Schools draggable element](https://www.w3schools.com/howto/howto_js_draggable.asp)
+3. [The article about alternatives to innerHTML and appendChild()](https://marian-caikovski.medium.com/modern-alternatives-to-innerhtml-and-appendchild-296b9e5a5d28)
+4. [The origin of the audio file I used](https://www.youtube.com/watch?v=OenXGHmL48U&list=PL6UM04F9igDbjpbkKYuFnUvn6eNGOJlHT&index=13)
+5. [The Hyrule Compendium API](https://github.com/rosemulazada/web-app-from-scratch-2324/wiki/Hyrule-Compendium-API-&-Personal-Data-JSON)
+6. [Difference between window.onload and document.ready](<https://www.edureka.co/community/183588/difference-between-window-load-and-document-readyfunctions#:~:text=The%20key%20difference%20between%20%24(,before%20all%20images%2Ciframes%20etc.)>)
+7. [How to detect arrow key presses in JavaScript](https://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript)
+8. [The Zelda dialog box-popup](https://codepen.io/mHansen/pen/xxZwLVY)
+9. [Background on the 'dynamic cards revealed' page](https://www.deviantart.com/sunnytp/art/Sheikah-system-wallpaper-1920-1080-764159748)
+10. [The Hyrule Crest on the back of the cards](https://i.ebayimg.com/images/g/~aEAAOSwCQlZ7oE8/s-l1200.webp);
+11. [The glass effect on the cards](https://css.glass/)
+12. [The filter CSS property on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
+13. [The used font: Hylia Serif](https://zeldauniverse.net/media/fonts/)
+14. [The forest image used on the second page](https://oyster.ignimgs.com/mediawiki/apis.ign.com/the-legend-of-zelda-breath-of-the-wild-2/0/0f/Korok_Forest.jpg?width=1024)
+15. [The master sword image (background)](https://assetsio.reedpopcdn.com/zelda-breath-of-the-wild-meesterzwaard-master-sword-krijgen-1489684398301.jpg?width=690&quality=75&format=jpg&dpr=2&auto=webp)
+16. [The Master Sword itself](https://preview.redd.it/c1dnsj3xn9e41.jpg?width=1080&crop=smart&auto=webp&s=c798ef8ef1a9b08f687fbfceb03bca5a39294319)
+17. [Photo of Mipha from BOTW](https://zeldawiki.wiki/wiki/File:BotW_Mipha_Artwork.png)
+18. [Photo of Urbosa from BOTW](https://zeldawiki.wiki/wiki/File:BotW_Urbosa_Artwork.png)
 
 <!-- replace the code in the /docs folder with your own, so you can showcase your work with GitHub Pages 🌍 -->
 
@@ -68,9 +79,3 @@ All of these points and, if necessary, possible revisions will be listed and add
 <!-- How about a section that describes how to install this project? 🤓 -->
 
 <!-- ...but how does one use this project? What are its features 🤔 -->
-
-<!-- What external data source is featured in your project and what are its properties 🌠 -->
-
-<!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
-
-<!-- How about a license here? 📜 (or is it a licence?) 🤷 -->

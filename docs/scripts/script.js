@@ -249,7 +249,7 @@ function draggableElement(draggableElementEvent) {
     draggableElementEvent.style.left =
       draggableElementEvent.offsetLeft - pos1 + "px";
 
-    let bodyElement = document.getElementsByTagName("body")[0];
+    // let bodyElement = document.getElementsByTagName("body")[0];
     function switchScenes() {
       bodyElement.replaceChild(itemPopup, masterSwordScene);
       bodyElement.classList.remove("master-sword-main-transition");
